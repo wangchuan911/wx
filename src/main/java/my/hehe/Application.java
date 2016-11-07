@@ -19,8 +19,9 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableScheduling
-@PropertySources({ @PropertySource("classpath:config/application.yml"),
-		@PropertySource("classpath:config/api.properties") })
+@PropertySources({ @PropertySource("classpath:/config/application.yml"),//package jar£¬the config path must be write £º"classpath:/resources/config/application.yml"
+		@PropertySource("classpath:/config/api.properties") })			//if you config file in dir:"resourse"!!!!
+
 public class Application extends SpringBootServletInitializer{
 
 	@Bean
