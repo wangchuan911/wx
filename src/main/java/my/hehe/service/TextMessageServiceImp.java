@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import my.hehe.entity.HtmlInfo;
+import my.hehe.entity.Token;
 import my.hehe.entity.receive.MessageBody4WX;
 import my.hehe.entity.send.TextMessage;
 import my.hehe.service.parser.HtmlHandler;
@@ -25,7 +26,9 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class TextMessageServiceImp {
 	@Resource
-	RestTemplate template;
+	private RestTemplate template;
+	@Resource
+	private Token token;
 
 	@Value("${api.weixin.sendToUser}")
 	private static String Send_URL;
@@ -54,14 +57,15 @@ public class TextMessageServiceImp {
 			msg.setCreateTime(new Date().getTime());
 			msg.setContent(sb.toString());
 
-		Map<String, String> params=new HashMap<String, String>();
-		params.put("token", SyncTokenTask.token.getAccess_token());
-			
-			HttpHeaders headers=new HttpHeaders();
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("token", token.getAccess_token());
+
+			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
-			
-			HttpEntity<TextMessage> entity=new HttpEntity<TextMessage>(msg, headers);
-			
+
+			HttpEntity<TextMessage> entity = new HttpEntity<TextMessage>(msg,
+					headers);
+
 			template.postForObject(Send_URL, entity, TextMessage.class, params);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

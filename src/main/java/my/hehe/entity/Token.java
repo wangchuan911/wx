@@ -1,5 +1,8 @@
 package my.hehe.entity;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class Token {
 	private String access_token;
 	private String expires_in;
