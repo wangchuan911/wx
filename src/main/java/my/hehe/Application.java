@@ -3,6 +3,8 @@ package my.hehe;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +24,7 @@ import org.springframework.web.client.RestTemplate;
 @PropertySources({ @PropertySource("classpath:/config/application.yml"),//package jar£¬the config path must be write £º"classpath:/resources/config/application.yml"
 		@PropertySource("classpath:/config/api.properties") })			//if you config file in dir:"resourse"!!!!
 
-public class Application extends SpringBootServletInitializer{
+public class Application extends SpringBootServletInitializer implements EmbeddedServletContainerCustomizer{
 
 	@Bean
 	public RestTemplate template() {
@@ -43,6 +45,10 @@ public class Application extends SpringBootServletInitializer{
 			SpringApplicationBuilder builder) {
 		// TODO Auto-generated method stub
 		return builder.sources(Application.class);
+	}
+
+	public void customize(ConfigurableEmbeddedServletContainer container) {
+		container.setPort(80);
 	}
 
 }

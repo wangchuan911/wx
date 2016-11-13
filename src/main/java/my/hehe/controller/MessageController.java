@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import my.hehe.entity.receive.MessageBody4WX;
 import my.hehe.entity.receive.TextMessage4WX;
+import my.hehe.service.AuthService;
 import my.hehe.service.TextMessageServiceImp;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,12 +16,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.qq.weixin.mp.aes.AesException;
+
+
 @RestController
 public class MessageController {
+	static final String XML_TYPE="application/xml; charset=UTF-8";
+	static final String JSON_TYPE="application/json; charset=UTF-8";
+	
 	@Resource
-	TextMessageServiceImp service;
+	TextMessageServiceImp textMessageService;
+	@Resource
+	AuthService authService;
 
-	@RequestMapping(path = "/hehe/xml", produces = "application/xml; charset=UTF-8")
+	@RequestMapping(path = "/hehe/xml", produces = XML_TYPE)
 	public @ResponseBody
 	TextMessage4WX heheX() {
 
@@ -28,7 +37,7 @@ public class MessageController {
 				new Date().getTime(), "msgType", "content", "msgId");
 	}
 
-	@RequestMapping(path = "/hehe/json")
+	@RequestMapping(path = "/hehe/json",produces = JSON_TYPE)
 	public @ResponseBody
 	Date heheJ() {
 		return new Date();
@@ -37,10 +46,8 @@ public class MessageController {
 	@RequestMapping(path = "/wx",method=RequestMethod.GET)
 	public String WX(@RequestParam String signature,
 			@RequestParam String timestamp, @RequestParam String nonce,
-			@RequestParam String echostr) {
-		System.out.println(signature);
-		
-		return null;
+			@RequestParam String echostr) throws AesException {
+		return authService.wxToeknAuth(signature, timestamp, nonce, echostr);
 	}
 
 	@RequestMapping(path = "/receive", headers = "content-type=application/xml")
@@ -52,7 +59,7 @@ public class MessageController {
 				public void run() {
 					// TODO Auto-generated method stub
 					System.out.println(message);
-					service.receiveText(message);//
+					textMessageService.receiveText(message);//
 				}
 			}).start();
 
