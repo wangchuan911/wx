@@ -14,8 +14,6 @@ import my.hehe.entity.receive.MessageBody4WX;
 import my.hehe.entity.send.TextMessage;
 import my.hehe.service.parser.HtmlHandler;
 import my.hehe.service.parser.HtmlPageParser;
-import my.hehe.service.schedul.SyncTokenTask;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,8 +23,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class TextMessageServiceImp {
-	@Resource
-	private RestTemplate template;
+//	@Resource
+//	private RestTemplate template;
 	@Resource
 	private Token token;
 
@@ -57,16 +55,15 @@ public class TextMessageServiceImp {
 			msg.setCreateTime(new Date().getTime());
 			msg.setContent(sb.toString());
 
-			Map<String, String> params = new HashMap<String, String>();
-			params.put("token", token.getAccess_token());
-
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-
-			HttpEntity<TextMessage> entity = new HttpEntity<TextMessage>(msg,
-					headers);
-
-			template.postForObject(Send_URL, entity, TextMessage.class, params);
+//			Map<String, String> params = new HashMap<String, String>();
+//			params.put("token", token.getAccess_token());
+//			HttpHeaders headers = new HttpHeaders();
+//			headers.setContentType(MediaType.APPLICATION_JSON);
+//
+//			HttpEntity<TextMessage> entity = new HttpEntity<TextMessage>(msg,
+//					headers);
+//
+//			template.postForObject(Send_URL, entity, TextMessage.class, params);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

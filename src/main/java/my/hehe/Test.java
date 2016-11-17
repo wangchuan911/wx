@@ -18,7 +18,7 @@ public class Test {
 
 	public static void demo() {
 		try {
-			String uri = "http://localhost:8080/receive/text";
+			String uri = "http://localhost:8080/receive";
 			RestTemplate template = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_XML);
@@ -37,10 +37,11 @@ public class Test {
 	}
 	public static void demo2() {
 		try {
-			String uri = "https://localhost:8080/receive";
+			String uri = "http://localhost/receive";
 			RestTemplate template = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_XML);
+			System.out.println(headers);
 			HttpEntity<TextMessage4WX> entity = new HttpEntity<TextMessage4WX>(
 					new TextMessage4WX("hehe", "haha", new Date().getTime(),
 							"text", "aaa", "1"), headers);

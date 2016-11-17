@@ -66,7 +66,7 @@ try {
 	StringBuffer sb = new StringBuffer();
 	// 字符串排序
 	Arrays.sort(data);
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < data.length; i++) {
 		sb.append(data[i]);
 	}
 	String str = sb.toString();

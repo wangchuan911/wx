@@ -8,14 +8,15 @@ import com.qq.weixin.mp.aes.SHA1;
 
 @Service
 public class AuthService {
-	@Value(value="${weixin.token}")
+	@Value(value = "${weixin.token}")
 	private String token;
-	
-	public String wxToeknAuth(String signature , String timestamp, String nonce,
-			String echostr ) throws AesException {
-		if(signature.equals(SHA1.getSHA1(token, timestamp, nonce))){
-			return echostr ;
-		};
-		return "";
+
+	public String wxToeknAuth(String signature, String timestamp, String nonce,
+			String echostr) throws AesException {
+		String sha1 = SHA1.getSHA1(token, timestamp, nonce);
+		if (signature.equals(sha1)) {
+			return echostr;
+		} else
+			return "";
 	}
 }
