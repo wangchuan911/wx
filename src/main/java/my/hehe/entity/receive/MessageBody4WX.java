@@ -6,6 +6,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class MessageBody4WX {
 
+	private String URL;
+	
+	
+	@XmlElement(name="URL")
+	public String getURL() {
+		return URL;
+	}
+
+
+	public void setURL(String uRL) {
+		URL = uRL;
+	}
+
+
+
 	private String ToUserName;
 
 	private String FromUserName;

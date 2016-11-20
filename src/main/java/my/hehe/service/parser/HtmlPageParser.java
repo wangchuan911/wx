@@ -3,6 +3,8 @@ package my.hehe.service.parser;
 import java.io.IOException;
 import java.util.List;
 
+import my.hehe.entity.HtmlInfo;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -16,17 +18,17 @@ public class HtmlPageParser {
 		return handler.parse4Template(document, t);
 	}
 
-//	public static void main(String[] args) {
-//		try {
-//			List<HtmlInfo> infos = H2OParse("http://www.tstdtz.com/tags/南宁停电通知",
-//					new HtmlHandler(),HtmlInfo.class);
-//			System.out.println(infos);
-//
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}
-//	}
+	public static void main(String[] args) {
+		try {
+			List<HtmlInfo> infos = H2OParse("http://www.tstdtz.com/tags/南宁停电通知",
+					new HtmlHandler(),HtmlInfo.class);
+			System.out.println(infos);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
 
 	// public static void demo() {
 	// Document document = null;

@@ -1,11 +1,22 @@
-package my.hehe.entity.receive;
+package my.hehe.entity.send.xml;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "xml")
-public class Message4WX2 extends Message4WX{
+public class TextMessage4WX extends Message4WX{
 
+	private String Content;
+	
+	
+	@XmlElement(name="Content")
+	public String getContent() {
+		return this.Content;
+	}
+
+	public void setContent(String content) {
+		this.Content = content;
+	}
 
 	@XmlElement(name="ToUserName")
 	@Override
@@ -50,11 +61,11 @@ public class Message4WX2 extends Message4WX{
 		return super.getMsgType();
 	}
 
-	@Override
-	public void setMsgType(String msgType) {
-		// TODO Auto-generated method stub
-		super.setMsgType(msgType);
-	}
+//	@Override
+//	public void setMsgType(String msgType) {
+//		// TODO Auto-generated method stub
+//		super.setMsgType(msgType);
+//	}
 	@XmlElement(name="MsgId")
 	@Override
 	public String getMsgId() {
@@ -68,21 +79,23 @@ public class Message4WX2 extends Message4WX{
 		super.setMsgId(msgId);
 	}
 
-	public Message4WX2() {
+	public TextMessage4WX() {
+		this.setMsgType("text");
 	}
 
-	public Message4WX2(String toUserName, String fromUserName,
-			Long createTime, String msgType,  String msgId) {
+	public TextMessage4WX(String toUserName, String fromUserName,
+			Long createTime,  String content, String msgId) {
 		super();
 		this.setToUserName(toUserName); 
 		this.setFromUserName(fromUserName);
 		this.setCreateTime(createTime);
-		this.setMsgType(msgType);
+		this.setMsgType("text");
+		this.Content = content;
 		this.setMsgId(msgId);
 	}
 @Override
 public String toString() {
 	// TODO Auto-generated method stub
-	return super.toString();
+	return super.toString()+","+Content;
 }
 }

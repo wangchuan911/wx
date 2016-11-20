@@ -1,22 +1,11 @@
-package my.hehe.entity.receive;
+package my.hehe.entity.send.xml;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "xml")
-public class TextMessage4WX extends Message4WX{
+public class Message4WX2XML extends Message4WX{
 
-	private String Content;
-	
-	
-	@XmlElement(name="Content")
-	public String getContent() {
-		return this.Content;
-	}
-
-	public void setContent(String content) {
-		this.Content = content;
-	}
 
 	@XmlElement(name="ToUserName")
 	@Override
@@ -79,22 +68,21 @@ public class TextMessage4WX extends Message4WX{
 		super.setMsgId(msgId);
 	}
 
-	public TextMessage4WX() {
+	public Message4WX2XML() {
 	}
 
-	public TextMessage4WX(String toUserName, String fromUserName,
-			Long createTime, String msgType, String content, String msgId) {
+	public Message4WX2XML(String toUserName, String fromUserName,
+			Long createTime, String msgType,  String msgId) {
 		super();
 		this.setToUserName(toUserName); 
 		this.setFromUserName(fromUserName);
 		this.setCreateTime(createTime);
 		this.setMsgType(msgType);
-		this.Content = content;
 		this.setMsgId(msgId);
 	}
 @Override
 public String toString() {
 	// TODO Auto-generated method stub
-	return super.toString()+","+Content;
+	return super.toString();
 }
 }

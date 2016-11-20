@@ -1,4 +1,4 @@
-package my.hehe.entity.receive;
+package my.hehe.entity.send.xml;
 
 public abstract class Message4WX {
 
@@ -39,7 +39,7 @@ public abstract class Message4WX {
 		return MsgType;
 	}
 	
-	public void setMsgType(String msgType) {
+	protected void setMsgType(String msgType) {
 		MsgType = msgType;
 	}
 
@@ -52,7 +52,8 @@ public abstract class Message4WX {
 		MsgId = msgId;
 	}
 	
-	public Message4WX(){}
+	public Message4WX(){
+	}
 	
 	public Message4WX(String toUserName, String fromUserName, Long createTime,
 			String msgType, String msgId) {

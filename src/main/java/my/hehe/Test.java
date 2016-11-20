@@ -2,8 +2,8 @@ package my.hehe;
 
 import java.util.Date;
 
-import my.hehe.entity.receive.Message4WX2;
-import my.hehe.entity.receive.TextMessage4WX;
+import my.hehe.entity.send.xml.Message4WX2XML;
+import my.hehe.entity.send.xml.TextMessage4WX;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,8 +25,8 @@ public class Test {
 //			HttpEntity<TextMessage4WX> entity = new HttpEntity<TextMessage4WX>(
 //					new TextMessage4WX("hehe", "haha", new Date().getTime(),
 //							"text", "aaa", "1"), headers);
-			HttpEntity<Message4WX2> entity = new HttpEntity<Message4WX2>(
-					new Message4WX2("hehe", "haha", new Date().getTime(),
+			HttpEntity<Message4WX2XML> entity = new HttpEntity<Message4WX2XML>(
+					new Message4WX2XML("hehe", "haha", new Date().getTime(),
 							"text",  "1"), headers);
 			System.out.println(template
 					.postForObject(uri, entity, String.class));
@@ -37,14 +37,15 @@ public class Test {
 	}
 	public static void demo2() {
 		try {
-			String uri = "http://localhost/receive";
+			String uri = "http://localhost/receive2";//139.199.164.14
+//			uri = "http://139.199.164.14/receive";
 			RestTemplate template = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_XML);
 			System.out.println(headers);
 			HttpEntity<TextMessage4WX> entity = new HttpEntity<TextMessage4WX>(
 					new TextMessage4WX("hehe", "haha", new Date().getTime(),
-							"text", "aaa", "1"), headers);
+							 "aaa", "1"), headers);
 
 			System.out.println(template
 					.postForObject(uri, entity, String.class));
