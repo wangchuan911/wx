@@ -41,7 +41,8 @@ public class Application extends SpringBootServletInitializer implements
 
 	@Bean
 	public TSTDTZApi getTstdtzApi() {
-		return new TSTDTZApi(new RestTemplate());
+//		return new TSTDTZApi(new RestTemplate());
+		return new TSTDTZApi();
 	}
 
 	@Bean

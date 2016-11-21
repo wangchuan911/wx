@@ -2,7 +2,6 @@ package my.hehe.util;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,22 +13,22 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
 public class TSTDTZApi {
-	private RestTemplate template;
+//	private RestTemplate template;
 
 	@Value("${tstdtz.tdtz}")
 	private String tdtz_url;
 
-	public TSTDTZApi(RestTemplate template) {
-		this.template = template;
-	}
+//	public TSTDTZApi(RestTemplate template) {
+//		this.template = template;
+//	}
 
 	public TSTDTZApi() {
 
 	}
 
-	public void setTemplate(RestTemplate template) {
-		this.template = template;
-	}
+//	public void setTemplate(RestTemplate template) {
+//		this.template = template;
+//	}
 
 	public String TD(String location, int count,long time) {
 		List<HtmlInfo> infos = null;
@@ -74,7 +73,8 @@ public class TSTDTZApi {
 
 	public static void main(String[] args) throws IOException {
 		//http://www.tstdtz.com/tags/南宁停电通知
-		TSTDTZApi api=new TSTDTZApi(new RestTemplate());
+//		TSTDTZApi api=new TSTDTZApi(new RestTemplate());
+		TSTDTZApi api=new TSTDTZApi();
 		api.tdtz_url="http://www.tstdtz.com/tags/{location}停电通知";
 		System.out.println(api.TD("南宁", 5,0));
 	}
