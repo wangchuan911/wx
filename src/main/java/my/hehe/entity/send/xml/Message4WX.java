@@ -2,15 +2,15 @@ package my.hehe.entity.send.xml;
 
 public abstract class Message4WX {
 
-	private String ToUserName;
+	protected String ToUserName;
 	
-	private String FromUserName;
+	protected String FromUserName;
 	
-	private Long CreateTime;
+	protected Long CreateTime;
 	
-	private String MsgType;
+	protected String MsgType;
 	
-	private String MsgId;
+	protected String MsgId;
 	
 	public String getToUserName() {
 		return ToUserName;

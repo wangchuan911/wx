@@ -54,7 +54,7 @@ public class MessageController {
 	public Object getMessage(
 			@RequestBody(required = false) final MessageBody4WX message) {
 
-		  return	msgService.receiveText(message);//
+		  return	msgService.receive(message);//
 
 		
 	}
