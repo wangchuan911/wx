@@ -4,8 +4,8 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
-import my.hehe.entity.message.receive.MessageBody4WX;
-import my.hehe.entity.message.send.xml.TextMessage4WX;
+import my.hehe.entity.message.MessageBody4WX;
+import my.hehe.entity.message.xml.TextMessage4WX;
 import my.hehe.service.AuthService;
 import my.hehe.service.MessageServiceImp;
 
@@ -53,10 +53,9 @@ public class MessageController {
 	// headers = "content-type=application/xml",
 	public Object getMessage(
 			@RequestBody(required = false) final MessageBody4WX message) {
+//		System.out.println(message.toString());
+		return msgService.receive(message);//
 
-		  return	msgService.receive(message);//
-
-		
 	}
 	// @RequestMapping(path = "/receive2", method = RequestMethod.POST)
 	// public Object getMessage2(

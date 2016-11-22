@@ -1,4 +1,4 @@
-package my.hehe.entity.message.send.json;
+package my.hehe.entity.message.json;
 
 
 public class TextMessage extends Message {

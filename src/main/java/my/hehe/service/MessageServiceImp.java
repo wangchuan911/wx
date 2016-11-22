@@ -8,11 +8,11 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import my.hehe.entity.message.Message4WX;
+import my.hehe.entity.message.MessageBody4WX;
 import my.hehe.entity.message.MessageCreater;
-import my.hehe.entity.message.receive.MessageBody4WX;
-import my.hehe.entity.message.send.xml.ImageMessage4WX;
-import my.hehe.entity.message.send.xml.Message4WX;
-import my.hehe.entity.message.send.xml.TextMessage4WX;
+import my.hehe.entity.message.xml.ImageMessage4WX;
+import my.hehe.entity.message.xml.TextMessage4WX;
 import my.hehe.util.TSTDTZApi;
 import my.hehe.util.WXType;
 
@@ -35,21 +35,29 @@ public class MessageServiceImp {
 
 		try {
 			if (message.getMsgType().equals(WXType.TEXT)) {
-
-				TextMessage4WX text = new TextMessage4WX();
-				text.setCreateTime(new Date().getTime());
-				text.setFromUserName(message.getToUserName());
-				text.setToUserName(message.getFromUserName());
-				text.setMsgId(message.getMediaId());
-				if (message.getContent().trim().equals("南宁")) {
+				TextMessage4WX text = MessageCreater.messageConverter(message,
+						TextMessage4WX.class);
+				// TextMessage4WX text = new TextMessage4WX();
+				// text.setCreateTime(new Date().getTime());
+				// text.setFromUserName(message.getToUserName());
+				// text.setToUserName(message.getFromUserName());
+				// text.setMsgId(message.getMediaId());
+				// if (message.getContent().trim().equals("南宁")) {
+				// text.setContent(api.TD(message.getContent().trim(), 1, 0));
+				// } else {
+				// text.setContent("you say:" + message.getContent());
+				// }
+				if (text.getContent().trim().equals("南宁")) {
 					text.setContent(api.TD(message.getContent().trim(), 1, 0));
 				} else {
 					text.setContent("you say:" + message.getContent());
 				}
+				text.fromToSwap();
 				return text;
 			} else if (message.getMsgType().equals(WXType.IMAGE)) {
 				ImageMessage4WX image = MessageCreater.messageConverter(
 						message, ImageMessage4WX.class);
+				System.out.println(image);
 				image.fromToSwap();
 				return image;
 			} else if (message.getMsgType().equals(WXType.SHORT_VIDEO)) {

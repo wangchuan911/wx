@@ -2,9 +2,6 @@ package my.hehe.entity.message;
 
 import java.lang.reflect.Field;
 
-import my.hehe.entity.message.receive.MessageBody4WX;
-import my.hehe.entity.message.send.xml.Message4WX;
-
 public class MessageCreater {
 	// public static <T extends Message4WX> T messageConverter(
 		// MessageBody4WX body, Class<T> clazz) {

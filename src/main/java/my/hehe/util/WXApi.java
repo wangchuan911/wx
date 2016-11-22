@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import my.hehe.entity.Token;
-import my.hehe.entity.message.receive.MessageBody4WX;
-import my.hehe.entity.message.send.json.Message;
-import my.hehe.entity.message.send.json.TextMessage;
+import my.hehe.entity.message.MessageBody4WX;
+import my.hehe.entity.message.json.Message;
+import my.hehe.entity.message.json.TextMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -93,7 +93,7 @@ public class WXApi {
 		}
 		this.token = template.getForObject(getToken_url, Token.class, map);
 		map.put("token", token.getAccess_token());
-		System.out.println("new token:"+token.getAccess_token());
+//		System.out.println("token:"+token.getAccess_token());
 	}
 
 	public void freshToken() {

@@ -1,4 +1,4 @@
-package my.hehe.entity.message.receive;
+package my.hehe.entity.message;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -50,6 +50,8 @@ public class MessageBody4WX {
 	private String Url;
 
 	private String Content;
+	
+	private String Recognition;
 
 	@XmlElement(name = "ToUserName")
 	public String getToUserName() {
@@ -136,6 +138,15 @@ public class MessageBody4WX {
 		return Content;
 	}
 
+	@XmlElement(name = "Recognition")
+	public String getRecognition() {
+		return Recognition;
+	}
+
+	public void setRecognition(String recognition) {
+		Recognition = recognition;
+	}
+
 	public void setToUserName(String toUserName) {
 		ToUserName = toUserName;
 	}
@@ -204,18 +215,51 @@ public class MessageBody4WX {
 		Content = content;
 	}
 
+	
 	@Override
 	public String toString() {
-		return "MessageBody4WX [ToUserName=" + ToUserName + ", FromUserName="
-				+ FromUserName + ", CreateTime=" + CreateTime + ", MsgType="
-				+ MsgType + ", MsgId=" + MsgId + ", MediaId=" + MediaId
-				+ ", PicUrl=" + PicUrl + ", Format=" + Format
-				+ ", ThumbMediaId=" + ThumbMediaId + ", Location_X="
-				+ Location_X + ", Location_Y=" + Location_Y + ", Scale="
-				+ Scale + ", Label=" + Label + ", Title=" + Title
-				+ ", Description=" + Description + ", Url=" + Url
-				+ ", Content=" + Content + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("MessageBody4WX [URL=");
+		builder.append(URL);
+		builder.append(", ToUserName=");
+		builder.append(ToUserName);
+		builder.append(", FromUserName=");
+		builder.append(FromUserName);
+		builder.append(", CreateTime=");
+		builder.append(CreateTime);
+		builder.append(", MsgType=");
+		builder.append(MsgType);
+		builder.append(", MsgId=");
+		builder.append(MsgId);
+		builder.append(", MediaId=");
+		builder.append(MediaId);
+		builder.append(", PicUrl=");
+		builder.append(PicUrl);
+		builder.append(", Format=");
+		builder.append(Format);
+		builder.append(", ThumbMediaId=");
+		builder.append(ThumbMediaId);
+		builder.append(", Location_X=");
+		builder.append(Location_X);
+		builder.append(", Location_Y=");
+		builder.append(Location_Y);
+		builder.append(", Scale=");
+		builder.append(Scale);
+		builder.append(", Label=");
+		builder.append(Label);
+		builder.append(", Title=");
+		builder.append(Title);
+		builder.append(", Description=");
+		builder.append(Description);
+		builder.append(", Url=");
+		builder.append(Url);
+		builder.append(", Content=");
+		builder.append(Content);
+		builder.append("]");
+		return builder.toString();
 	}
+
+
 
 
 
