@@ -1,4 +1,4 @@
-package my.hehe.entity.send.xml;
+package my.hehe.entity.message.send.xml;
 
 public abstract class Message4WX {
 
@@ -69,5 +69,9 @@ public abstract class Message4WX {
 		// TODO Auto-generated method stub
 		return MsgId+","+FromUserName+","+ToUserName+","+MsgType+","+CreateTime;
 	}
-
+	public void fromToSwap() {
+		String temp = this.ToUserName;
+		this.ToUserName = this.FromUserName;
+		this.FromUserName = temp;
+	}
 }

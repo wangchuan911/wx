@@ -2,8 +2,8 @@ package my.hehe;
 
 import java.util.Date;
 
-import my.hehe.entity.send.xml.Message4WX2XML;
-import my.hehe.entity.send.xml.TextMessage4WX;
+import my.hehe.entity.message.send.xml.Message4WX2XML;
+import my.hehe.entity.message.send.xml.TextMessage4WX;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

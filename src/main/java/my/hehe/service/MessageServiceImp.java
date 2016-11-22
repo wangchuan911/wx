@@ -1,29 +1,21 @@
 package my.hehe.service;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Resource;
 
-import my.hehe.entity.HtmlInfo;
-import my.hehe.entity.receive.MessageBody4WX;
-import my.hehe.entity.send.json.TextMessage;
-import my.hehe.entity.send.json.TextMessage.Text;
-import my.hehe.entity.send.xml.Message4WX;
-import my.hehe.entity.send.xml.TextMessage4WX;
-import my.hehe.service.parser.HtmlHandler;
-import my.hehe.service.parser.HtmlPageParser;
+import my.hehe.entity.message.MessageCreater;
+import my.hehe.entity.message.receive.MessageBody4WX;
+import my.hehe.entity.message.send.xml.ImageMessage4WX;
+import my.hehe.entity.message.send.xml.Message4WX;
+import my.hehe.entity.message.send.xml.TextMessage4WX;
 import my.hehe.util.TSTDTZApi;
-import my.hehe.util.WXApi;
 import my.hehe.util.WXType;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -43,6 +35,7 @@ public class MessageServiceImp {
 
 		try {
 			if (message.getMsgType().equals(WXType.TEXT)) {
+
 				TextMessage4WX text = new TextMessage4WX();
 				text.setCreateTime(new Date().getTime());
 				text.setFromUserName(message.getToUserName());
@@ -54,14 +47,14 @@ public class MessageServiceImp {
 					text.setContent("you say:" + message.getContent());
 				}
 				return text;
-			}
-			if (message.getMsgType().equals(WXType.IMAGE)) {
+			} else if (message.getMsgType().equals(WXType.IMAGE)) {
+				ImageMessage4WX image = MessageCreater.messageConverter(
+						message, ImageMessage4WX.class);
+				image.fromToSwap();
+				return image;
+			} else if (message.getMsgType().equals(WXType.SHORT_VIDEO)) {
 
-			}
-			if (message.getMsgType().equals(WXType.SHORT_VIDEO)) {
-
-			}
-			if (message.getMsgType().equals(WXType.VOICE)) {
+			} else if (message.getMsgType().equals(WXType.VOICE)) {
 
 			}
 
@@ -80,43 +73,23 @@ public class MessageServiceImp {
 		return "success";
 	}
 
-	public static void main(String[] args) {
-		MessageCreater.messageConverter(new MessageBody4WX(), TextMessage4WX.class);
-	}
-}
-
-class MessageCreater {
-	public static <T extends Message4WX> T messageConverter(MessageBody4WX body, Class<T> clazz) {
-		try {
-			Field[] clazz_field = clazz.getDeclaredFields();
-			for (Field field : clazz_field) {
-				field.setAccessible(true);
-				System.out.println(field.getName());
-			}
-			
-			Class clazz_super=clazz.getSuperclass();
-			Field[] clazz_super_field =clazz_super.getDeclaredFields();
-			for (Field field : clazz_super_field) {
-				field.setAccessible(true);
-				System.out.println(field.getName());
-			}
-			Set<String> set=new HashSet<String>();
-			set.toArray();
-			
-	
-			Method[] m = clazz.getMethods();
-			if (body == null) {
-				return null;
-			}
-			Class body_clazz = body.getClass();
-			Field[] body_fields = body_clazz.getFields();
-			System.out.println(body_fields.length);
-			Method[] body_methods = body_clazz.getMethods();
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-
-		return null;
-	}
+	// public static void main(String[] args) {
+	// MessageBody4WX t = new MessageBody4WX();
+	// t.setContent("a");
+	// t.setFromUserName("b");
+	// t.setToUserName("c");
+	// t.setMsgId("aa");
+	// t.setMsgType("text");
+	// t.setCreateTime(11111L);
+	//
+	// // System.out.println(MessageCreater.messageConverter2(t,
+	// // TextMessage4WX.class));
+	//
+	//
+	// ImageMessage4WX tt=MessageCreater.messageConverter(t,
+	// ImageMessage4WX.class);
+	// System.out.println(tt);
+	// tt.fromToSwap();
+	// System.out.println(tt);
+	// }
 }

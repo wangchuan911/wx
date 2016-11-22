@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import my.hehe.entity.Token;
-import my.hehe.entity.receive.MessageBody4WX;
-import my.hehe.entity.send.json.Message;
-import my.hehe.entity.send.json.TextMessage;
+import my.hehe.entity.message.receive.MessageBody4WX;
+import my.hehe.entity.message.send.json.Message;
+import my.hehe.entity.message.send.json.TextMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

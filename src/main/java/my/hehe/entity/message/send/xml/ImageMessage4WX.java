@@ -1,21 +1,34 @@
-package my.hehe.entity.send.xml;
+package my.hehe.entity.message.send.xml;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import my.hehe.util.WXType;
+
 @XmlRootElement(name = "xml")
 public class ImageMessage4WX extends Message4WX{
 
-	private String Content;
+	private String PicUrl;
+	private String MediaId;
 	
 	
-	@XmlElement(name="Content")
-	public String getContent() {
-		return this.Content;
+	
+
+	@XmlElement(name="PicUrl")
+	public String getPicUrl() {
+		return PicUrl;
+	}
+	@XmlElement(name="MediaId")
+	public String getMediaId() {
+		return MediaId;
 	}
 
-	public void setContent(String content) {
-		this.Content = content;
+	public void setPicUrl(String picUrl) {
+		PicUrl = picUrl;
+	}
+
+	public void setMediaId(String mediaId) {
+		MediaId = mediaId;
 	}
 
 	@XmlElement(name="ToUserName")
@@ -80,22 +93,38 @@ public class ImageMessage4WX extends Message4WX{
 	}
 
 	public ImageMessage4WX() {
-		this.setMsgType("text");
+		this.setMsgType(WXType.IMAGE);
 	}
 
 	public ImageMessage4WX(String toUserName, String fromUserName,
-			Long createTime,  String content, String msgId) {
-		super();
-		this.setToUserName(toUserName); 
-		this.setFromUserName(fromUserName);
-		this.setCreateTime(createTime);
-		this.setMsgType("text");
-		this.Content = content;
-		this.setMsgId(msgId);
+			Long createTime,String msgId,String picUrl, String mediaId) {
+		super(toUserName, fromUserName, createTime, WXType.IMAGE, msgId);
+		this.PicUrl = picUrl;
+		this.MediaId = mediaId;
+		// TODO Auto-generated constructor stub
 	}
-@Override
-public String toString() {
-	// TODO Auto-generated method stub
-	return super.toString()+","+Content;
-}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("{\"PicUrl\":\"");
+		builder.append(PicUrl);
+		builder.append("\", \"MediaId\":\"");
+		builder.append(MediaId);
+		builder.append("\", \"ToUserName\":\"");
+		builder.append(ToUserName);
+		builder.append("\", \"FromUserName\":\"");
+		builder.append(FromUserName);
+		builder.append("\", \"CreateTime\":\"");
+		builder.append(CreateTime);
+		builder.append("\", \"MsgType\":\"");
+		builder.append(MsgType);
+		builder.append("\", \"MsgId\":\"");
+		builder.append(MsgId);
+		builder.append("\"]");
+		return builder.toString();
+	}
+
+
+
+
 }

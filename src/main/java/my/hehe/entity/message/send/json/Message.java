@@ -1,8 +1,6 @@
-package my.hehe.entity.send.json;
+package my.hehe.entity.message.send.json;
 
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "xml")
 public class Message {
 
 	protected String touser;

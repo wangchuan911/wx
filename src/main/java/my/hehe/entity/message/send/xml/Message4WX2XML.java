@@ -1,4 +1,4 @@
-package my.hehe.entity.send.xml;
+package my.hehe.entity.message.send.xml;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

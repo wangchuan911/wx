@@ -1,4 +1,4 @@
-package my.hehe.entity.send.xml;
+package my.hehe.entity.message.send.xml;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,11 +25,11 @@ public class TextMessage4WX extends Message4WX{
 		return super.getToUserName();
 	}
 
-	@Override
-	public void setToUserName(String toUserName) {
-		// TODO Auto-generated method stub
-		super.setToUserName(toUserName);
-	}
+//	@Override
+//	public void setToUserName(String toUserName) {
+//		// TODO Auto-generated method stub
+//		super.setToUserName(toUserName);
+//	}
 	@XmlElement(name="FromUserName")
 	@Override
 	public String getFromUserName() {
@@ -37,11 +37,11 @@ public class TextMessage4WX extends Message4WX{
 		return super.getFromUserName();
 	}
 
-	@Override
-	public void setFromUserName(String fromUserName) {
-		// TODO Auto-generated method stub
-		super.setFromUserName(fromUserName);
-	}
+//	@Override
+//	public void setFromUserName(String fromUserName) {
+//		// TODO Auto-generated method stub
+//		super.setFromUserName(fromUserName);
+//	}
 	@XmlElement(name="CreateTime")
 	@Override
 	public Long getCreateTime() {
@@ -49,11 +49,11 @@ public class TextMessage4WX extends Message4WX{
 		return super.getCreateTime();
 	}
 
-	@Override
-	public void setCreateTime(Long createTime) {
-		// TODO Auto-generated method stub
-		super.setCreateTime(createTime);
-	}
+//	@Override
+//	public void setCreateTime(Long createTime) {
+//		// TODO Auto-generated method stub
+//		super.setCreateTime(createTime);
+//	}
 	@XmlElement(name="MsgType")
 	@Override
 	public String getMsgType() {
@@ -73,15 +73,16 @@ public class TextMessage4WX extends Message4WX{
 		return super.getMsgId();
 	}
 
-	@Override
-	public void setMsgId(String msgId) {
-		// TODO Auto-generated method stub
-		super.setMsgId(msgId);
-	}
+//	@Override
+//	public void setMsgId(String msgId) {
+//		// TODO Auto-generated method stub
+//		super.setMsgId(msgId);
+//	}
 
 	public TextMessage4WX() {
 		this.setMsgType("text");
 	}
+	
 
 	public TextMessage4WX(String toUserName, String fromUserName,
 			Long createTime,  String content, String msgId) {
@@ -92,10 +93,26 @@ public class TextMessage4WX extends Message4WX{
 		this.setMsgType("text");
 		this.Content = content;
 		this.setMsgId(msgId);
+
 	}
-@Override
-public String toString() {
-	// TODO Auto-generated method stub
-	return super.toString()+","+Content;
-}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("TextMessage4WX [Content=");
+		builder.append(Content);
+		builder.append(", ToUserName=");
+		builder.append(ToUserName);
+		builder.append(", FromUserName=");
+		builder.append(FromUserName);
+		builder.append(", CreateTime=");
+		builder.append(CreateTime);
+		builder.append(", MsgType=");
+		builder.append(MsgType);
+		builder.append(", MsgId=");
+		builder.append(MsgId);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

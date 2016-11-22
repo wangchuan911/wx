@@ -1,11 +1,9 @@
-package my.hehe.entity.send.json;
+package my.hehe.entity.message.send.json;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "xml")
 public class TextMessage extends Message {
-	protected Text text;
+	
+	private  Text text;
 
 	public Text getText() {
 		return text;

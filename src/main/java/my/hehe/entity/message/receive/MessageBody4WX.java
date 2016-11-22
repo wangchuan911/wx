@@ -1,4 +1,4 @@
-package my.hehe.entity.receive;
+package my.hehe.entity.message.receive;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -7,19 +7,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class MessageBody4WX {
 
 	private String URL;
-	
-	
-	@XmlElement(name="URL")
+
+	@XmlElement(name = "URL")
 	public String getURL() {
 		return URL;
 	}
 
-
 	public void setURL(String uRL) {
 		URL = uRL;
 	}
-
-
 
 	private String ToUserName;
 
@@ -55,211 +51,158 @@ public class MessageBody4WX {
 
 	private String Content;
 
-	
-	@XmlElement(name="ToUserName")
+	@XmlElement(name = "ToUserName")
 	public String getToUserName() {
 		return ToUserName;
 	}
 
-
-	@XmlElement(name="FromUserName")
+	@XmlElement(name = "FromUserName")
 	public String getFromUserName() {
 		return FromUserName;
 	}
 
-
-	@XmlElement(name="CreateTime")
+	@XmlElement(name = "CreateTime")
 	public Long getCreateTime() {
 		return CreateTime;
 	}
 
-
-	@XmlElement(name="MsgType")
+	@XmlElement(name = "MsgType")
 	public String getMsgType() {
 		return MsgType;
 	}
 
-
-	@XmlElement(name="MsgId")
+	@XmlElement(name = "MsgId")
 	public String getMsgId() {
 		return MsgId;
 	}
 
-
-	@XmlElement(name="MediaId")
+	@XmlElement(name = "MediaId")
 	public String getMediaId() {
 		return MediaId;
 	}
 
-
-	@XmlElement(name="PicUrl")
+	@XmlElement(name = "PicUrl")
 	public String getPicUrl() {
 		return PicUrl;
 	}
 
-
-	@XmlElement(name="Format")
+	@XmlElement(name = "Format")
 	public String getFormat() {
 		return Format;
 	}
 
-
-	@XmlElement(name="ThumbMediaId")
+	@XmlElement(name = "ThumbMediaId")
 	public String getThumbMediaId() {
 		return ThumbMediaId;
 	}
 
-
-	@XmlElement(name="Location_X")
+	@XmlElement(name = "Location_X")
 	public String getLocation_X() {
 		return Location_X;
 	}
 
-
-	@XmlElement(name="Location_Y")
+	@XmlElement(name = "Location_Y")
 	public String getLocation_Y() {
 		return Location_Y;
 	}
 
-
-	@XmlElement(name="Scale")
+	@XmlElement(name = "Scale")
 	public String getScale() {
 		return Scale;
 	}
 
-
-	@XmlElement(name="Label")
+	@XmlElement(name = "Label")
 	public String getLabel() {
 		return Label;
 	}
 
-
-	@XmlElement(name="Title")
+	@XmlElement(name = "Title")
 	public String getTitle() {
 		return Title;
 	}
 
-
-	@XmlElement(name="Description")
+	@XmlElement(name = "Description")
 	public String getDescription() {
 		return Description;
 	}
 
-
-	@XmlElement(name="Url")
+	@XmlElement(name = "Url")
 	public String getUrl() {
 		return Url;
 	}
 
-
-	@XmlElement(name="Content")
+	@XmlElement(name = "Content")
 	public String getContent() {
 		return Content;
 	}
-
-
 
 	public void setToUserName(String toUserName) {
 		ToUserName = toUserName;
 	}
 
-
-
 	public void setFromUserName(String fromUserName) {
 		FromUserName = fromUserName;
 	}
-
-
 
 	public void setCreateTime(Long createTime) {
 		CreateTime = createTime;
 	}
 
-
-
 	public void setMsgType(String msgType) {
 		MsgType = msgType;
 	}
-
-
 
 	public void setMsgId(String msgId) {
 		MsgId = msgId;
 	}
 
-
-
 	public void setMediaId(String mediaId) {
 		MediaId = mediaId;
 	}
-
-
 
 	public void setPicUrl(String picUrl) {
 		PicUrl = picUrl;
 	}
 
-
-
 	public void setFormat(String format) {
 		Format = format;
 	}
-
-
 
 	public void setThumbMediaId(String thumbMediaId) {
 		ThumbMediaId = thumbMediaId;
 	}
 
-
-
 	public void setLocation_X(String location_X) {
 		Location_X = location_X;
 	}
-
-
 
 	public void setLocation_Y(String location_Y) {
 		Location_Y = location_Y;
 	}
 
-
-
 	public void setScale(String scale) {
 		Scale = scale;
 	}
-
-
 
 	public void setLabel(String label) {
 		Label = label;
 	}
 
-
-
 	public void setTitle(String title) {
 		Title = title;
 	}
-
-
 
 	public void setDescription(String description) {
 		Description = description;
 	}
 
-
-
 	public void setUrl(String url) {
 		Url = url;
 	}
 
-
-
 	public void setContent(String content) {
 		Content = content;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -273,8 +216,6 @@ public class MessageBody4WX {
 				+ ", Description=" + Description + ", Url=" + Url
 				+ ", Content=" + Content + "]";
 	}
-
-
 
 
 
