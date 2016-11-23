@@ -1,13 +1,9 @@
-package my.hehe.entity.message.xml;
+package my.hehe.entity.message.from;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import my.hehe.entity.message.Message4WX;
-import my.hehe.util.WXType;
-
 @XmlRootElement(name = "xml")
-public class LocationMessage4WX extends Message4WX{
+public class LocationMessageFromWX extends MessageFromWX{
 private String	Location_X;
 private String	Location_Y;
 private String	Scale;

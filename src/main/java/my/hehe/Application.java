@@ -6,7 +6,6 @@ import javax.servlet.Filter;
 import my.hehe.util.TSTDTZApi;
 import my.hehe.util.WXApi;
 
-import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;

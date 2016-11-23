@@ -1,4 +1,5 @@
-package my.hehe.entity.message.json;
+package my.hehe.entity.message.to.customer;
+
 
 
 public class TextMessage extends Message {

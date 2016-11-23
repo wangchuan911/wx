@@ -1,18 +1,15 @@
 package my.hehe.service;
 
-import java.lang.reflect.Field;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
-import my.hehe.entity.message.Message4WX;
 import my.hehe.entity.message.MessageBody4WX;
 import my.hehe.entity.message.MessageCreater;
-import my.hehe.entity.message.xml.ImageMessage4WX;
-import my.hehe.entity.message.xml.TextMessage4WX;
+import my.hehe.entity.message.from.ImageMessageFromWX;
+import my.hehe.entity.message.from.TextMessageFromWX;
+import my.hehe.entity.message.to.ImageMessageToWX;
+import my.hehe.entity.message.to.TextMessageToWX;
 import my.hehe.util.TSTDTZApi;
 import my.hehe.util.WXType;
 
@@ -32,55 +29,62 @@ public class MessageServiceImp {
 	private TSTDTZApi api;
 
 	public Object receive(MessageBody4WX message) {
-
+		Object result = null;
 		try {
 			if (message.getMsgType().equals(WXType.TEXT)) {
-				TextMessage4WX text = MessageCreater.messageConverter(message,
-						TextMessage4WX.class);
-				// TextMessage4WX text = new TextMessage4WX();
-				// text.setCreateTime(new Date().getTime());
-				// text.setFromUserName(message.getToUserName());
-				// text.setToUserName(message.getFromUserName());
-				// text.setMsgId(message.getMediaId());
-				// if (message.getContent().trim().equals("南宁")) {
-				// text.setContent(api.TD(message.getContent().trim(), 1, 0));
-				// } else {
-				// text.setContent("you say:" + message.getContent());
-				// }
-				if (text.getContent().trim().equals("南宁")) {
-					text.setContent(api.TD(message.getContent().trim(), 1, 0));
+				TextMessageFromWX from = MessageCreater.messageConverter(
+						message, TextMessageFromWX.class);
+
+				TextMessageToWX to = new TextMessageToWX(from);
+				if (from.getContent().trim().equals("南宁")) {
+					to.setContent(api.TD(message.getContent().trim(), 1, 0));
 				} else {
-					text.setContent("you say:" + message.getContent());
+					to.setContent("you say:" + message.getContent());
 				}
-				text.fromToSwap();
-				return text;
+				result = to;
 			} else if (message.getMsgType().equals(WXType.IMAGE)) {
-				ImageMessage4WX image = MessageCreater.messageConverter(
-						message, ImageMessage4WX.class);
-				System.out.println(image);
-				image.fromToSwap();
-				return image;
+				ImageMessageFromWX from = MessageCreater.messageConverter(
+						message, ImageMessageFromWX.class);
+				ImageMessageToWX to = new ImageMessageToWX(from);
+				to.setMediaId(from.getMediaId());
+				result = to;
 			} else if (message.getMsgType().equals(WXType.SHORT_VIDEO)) {
+
+			} else if (message.getMsgType().equals(WXType.VIDEO)) {
 
 			} else if (message.getMsgType().equals(WXType.VOICE)) {
 
+			} else if (message.getMsgType().equals(WXType.LINK)) {
+
+			} else if (message.getMsgType().equals(WXType.LOCATION)) {
 			}
-
-			// msg.setToUserName(message.getFromUserName());
-
-			// TextMessage msg = new TextMessage(message.getFromUserName(),
-			// message.getMsgType(), new
-			// Text("the user:"+message.getFromUserName()+" say :"+message.getContent()));//
-			// "oHVYhxLCD5jluKrhBQZsaVubtdVU"
-			// api.sendToUser(msg);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "success";
+		if (result != null || inheritCheck(result, TextMessageToWX.class)) {
+			return result;
+		} else {
+			return "success";
+		}
+
 	}
 
+	public <T> boolean inheritCheck(T object, Class<?>... clazz) {
+		boolean flag = false;
+		int i = 0;
+		while (!flag && i < clazz.length) {
+			flag = flag
+					|| object.getClass().getName().equals(clazz[i++].getName());
+		}
+		return flag;
+	}
+
+	// public static void main(String[] args) {
+	// System.out.println(MessageServiceImp.ClassDefind(new ImageMessage4WX(),
+	// MessageBody4WX.class,ImageMessage4WX.class));;
+	// }
 	// public static void main(String[] args) {
 	// MessageBody4WX t = new MessageBody4WX();
 	// t.setContent("a");

@@ -7,8 +7,8 @@ import java.util.Map;
 
 import my.hehe.entity.Token;
 import my.hehe.entity.message.MessageBody4WX;
-import my.hehe.entity.message.json.Message;
-import my.hehe.entity.message.json.TextMessage;
+import my.hehe.entity.message.to.customer.Message;
+import my.hehe.entity.message.to.customer.TextMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

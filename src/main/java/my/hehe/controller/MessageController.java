@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.annotation.Resource;
 
 import my.hehe.entity.message.MessageBody4WX;
-import my.hehe.entity.message.xml.TextMessage4WX;
+import my.hehe.entity.message.from.TextMessageFromWX;
 import my.hehe.service.AuthService;
 import my.hehe.service.MessageServiceImp;
 

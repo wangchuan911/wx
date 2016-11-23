@@ -1,14 +1,9 @@
-package my.hehe.entity.message.xml;
+package my.hehe.entity.message.from;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import my.hehe.entity.message.Message4WX;
 import my.hehe.util.WXType;
 
-@XmlRootElement(name = "xml")
-public class ImageMessage4WX extends Message4WX{
+
+public class ImageMessageFromWX extends MessageFromWX{
 
 	private String PicUrl;
 	private String MediaId;
@@ -21,12 +16,6 @@ public class ImageMessage4WX extends Message4WX{
 		return MediaId;
 	}
 	
-	@XmlElementWrapper(name="Image")
-	@XmlElement(name="MediaId")
-	public String[] getMediaIds(){
-		String[] ids={MediaId};
-		return ids;		
-	}
 
 	public void setPicUrl(String picUrl) {
 		PicUrl = picUrl;
@@ -37,11 +26,11 @@ public class ImageMessage4WX extends Message4WX{
 	}
 
 
-	public ImageMessage4WX() {
+	public ImageMessageFromWX() {
 		this.setMsgType(WXType.IMAGE);
 	}
 
-	public ImageMessage4WX(String toUserName, String fromUserName,
+	public ImageMessageFromWX(String toUserName, String fromUserName,
 			Long createTime,String msgId,String picUrl, String mediaId) {
 		super(toUserName, fromUserName, createTime, WXType.IMAGE, msgId);
 		this.PicUrl = picUrl;

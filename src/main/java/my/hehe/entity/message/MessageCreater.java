@@ -2,6 +2,8 @@ package my.hehe.entity.message;
 
 import java.lang.reflect.Field;
 
+import my.hehe.entity.message.from.MessageFromWX;
+
 public class MessageCreater {
 	// public static <T extends Message4WX> T messageConverter(
 		// MessageBody4WX body, Class<T> clazz) {
@@ -44,7 +46,7 @@ public class MessageCreater {
 		// return null;
 		// }
 
-		public static <T extends Message4WX> T messageConverter(
+		public static <T extends MessageFromWX> T messageConverter(
 				MessageBody4WX body, Class<T> clazz) {
 			if (body == null) {
 				return null;
@@ -66,12 +68,13 @@ public class MessageCreater {
 
 				}
 				for (Field field : clazz_super_field) {
-					if (field.getName().equals("MsgType")) {
-						continue;
-					}
+//					if (field.getName().equals("MsgType")) {
+//						continue;
+//					}
 					field.setAccessible(true);
 					Field body_clazz_field = body_clazz.getDeclaredField(field
 							.getName());
+					if(body_clazz_field==null){continue;}
 					body_clazz_field.setAccessible(true);
 					field.set(t, body_clazz_field.get(body));
 				}

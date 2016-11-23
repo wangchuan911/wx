@@ -1,9 +1,6 @@
-package my.hehe.entity.message;
+package my.hehe.entity.message.from;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-@XmlRootElement(name = "xml")
-public abstract class Message4WX {
+public abstract class MessageFromWX {
 
 	protected String ToUserName;
 	
@@ -16,23 +13,23 @@ public abstract class Message4WX {
 	protected String MsgId;
 	
 
-	@XmlElement(name="ToUserName")
+
 	public String getToUserName() {
 		return ToUserName;
 	}
-	@XmlElement(name="FromUserName")
+
 	public String getFromUserName() {
 		return FromUserName;
 	}
-	@XmlElement(name="CreateTime")
+
 	public Long getCreateTime() {
 		return CreateTime;
 	}
-	@XmlElement(name="MsgType")
+
 	public String getMsgType() {
 		return MsgType;
 	}
-	@XmlElement(name="MsgId")
+
 	public String getMsgId() {
 		return MsgId;
 	}
@@ -57,10 +54,10 @@ public abstract class Message4WX {
 		MsgId = msgId;
 	}
 
-	public Message4WX(){
+	public MessageFromWX(){
 	}
 	
-	public Message4WX(String toUserName, String fromUserName, Long createTime,
+	public MessageFromWX(String toUserName, String fromUserName, Long createTime,
 			String msgType, String msgId) {
 		super();
 		ToUserName = toUserName;

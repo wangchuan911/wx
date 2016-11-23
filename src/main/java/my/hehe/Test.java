@@ -2,10 +2,10 @@ package my.hehe;
 
 import java.util.Date;
 
-import my.hehe.entity.message.Message4WX;
 import my.hehe.entity.message.MessageBody4WX;
-import my.hehe.entity.message.xml.ImageMessage4WX;
-import my.hehe.entity.message.xml.TextMessage4WX;
+import my.hehe.entity.message.from.ImageMessageFromWX;
+import my.hehe.entity.message.from.MessageFromWX;
+import my.hehe.entity.message.from.TextMessageFromWX;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -46,8 +46,8 @@ public class Test {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_XML);
 			System.out.println(headers);
-			HttpEntity<TextMessage4WX> entity = new HttpEntity<TextMessage4WX>(
-					new TextMessage4WX("hehe", "haha", new Date().getTime(),
+			HttpEntity<TextMessageFromWX> entity = new HttpEntity<TextMessageFromWX>(
+					new TextMessageFromWX("hehe", "haha", new Date().getTime(),
 							 "aaa", "1"), headers);
 
 			System.out.println(template
@@ -70,6 +70,7 @@ public class Test {
 			m.setMsgType("image");
 			m.setToUserName("c");
 			m.setPicUrl("aaaa");
+			m.setMediaId("aaaaaa");
 			HttpEntity<MessageBody4WX> entity = new HttpEntity<MessageBody4WX>(
 					m, headers);
 

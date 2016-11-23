@@ -1,11 +1,9 @@
-package my.hehe.entity.message.xml;
+package my.hehe.entity.message.from;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import my.hehe.entity.message.Message4WX;
-
 @XmlRootElement(name = "xml")
-public class ShortVideoMessage4WX extends Message4WX{
+public class ShortVideoMessageFromWX extends MessageFromWX{
 private String MediaId;
 private String ThumbMediaId;
 public String getMediaId() {

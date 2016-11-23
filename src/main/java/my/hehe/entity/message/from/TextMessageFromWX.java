@@ -1,13 +1,12 @@
-package my.hehe.entity.message.xml;
+package my.hehe.entity.message.from;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import my.hehe.entity.message.Message4WX;
 import my.hehe.util.WXType;
 
 @XmlRootElement(name = "xml")
-public class TextMessage4WX extends Message4WX{
+public class TextMessageFromWX extends MessageFromWX{
 
 	private String Content;
 	
@@ -22,12 +21,12 @@ public class TextMessage4WX extends Message4WX{
 	}
 
 
-	public TextMessage4WX() {
+	public TextMessageFromWX() {
 		this.setMsgType(WXType.TEXT);
 	}
 	
 
-	public TextMessage4WX(String toUserName, String fromUserName,
+	public TextMessageFromWX(String toUserName, String fromUserName,
 			Long createTime,  String content, String msgId) {
 		super();
 		this.setToUserName(toUserName); 
