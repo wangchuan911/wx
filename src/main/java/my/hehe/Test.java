@@ -60,7 +60,7 @@ public class Test {
 	public static void demo3() {
 		try {
 			String uri = "http://139.199.164.14/wx";//139.199.164.14
-//			uri = "http://139.199.164.14/receive";
+			uri = "http://localhost/wx";
 			RestTemplate template = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_XML);

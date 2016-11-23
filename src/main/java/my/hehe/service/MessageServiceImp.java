@@ -9,6 +9,7 @@ import my.hehe.entity.message.MessageCreater;
 import my.hehe.entity.message.from.ImageMessageFromWX;
 import my.hehe.entity.message.from.TextMessageFromWX;
 import my.hehe.entity.message.to.ImageMessageToWX;
+import my.hehe.entity.message.to.MessageToWX;
 import my.hehe.entity.message.to.TextMessageToWX;
 import my.hehe.util.TSTDTZApi;
 import my.hehe.util.WXType;
@@ -28,8 +29,8 @@ public class MessageServiceImp {
 	@Resource
 	private TSTDTZApi api;
 
-	public Object receive(MessageBody4WX message) {
-		Object result = null;
+	public MessageToWX receive(MessageBody4WX message) {
+		
 		try {
 			if (message.getMsgType().equals(WXType.TEXT)) {
 				TextMessageFromWX from = MessageCreater.messageConverter(
@@ -41,13 +42,13 @@ public class MessageServiceImp {
 				} else {
 					to.setContent("you say:" + message.getContent());
 				}
-				result = to;
+				return to;
 			} else if (message.getMsgType().equals(WXType.IMAGE)) {
 				ImageMessageFromWX from = MessageCreater.messageConverter(
 						message, ImageMessageFromWX.class);
 				ImageMessageToWX to = new ImageMessageToWX(from);
 				to.setMediaId(from.getMediaId());
-				result = to;
+				return to;
 			} else if (message.getMsgType().equals(WXType.SHORT_VIDEO)) {
 
 			} else if (message.getMsgType().equals(WXType.VIDEO)) {
@@ -57,18 +58,13 @@ public class MessageServiceImp {
 			} else if (message.getMsgType().equals(WXType.LINK)) {
 
 			} else if (message.getMsgType().equals(WXType.LOCATION)) {
+				
 			}
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (result != null || inheritCheck(result, TextMessageToWX.class)) {
-			return result;
-		} else {
-			return "success";
-		}
-
+			return null;
 	}
 
 	public <T> boolean inheritCheck(T object, Class<?>... clazz) {

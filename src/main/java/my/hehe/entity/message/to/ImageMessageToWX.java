@@ -22,22 +22,6 @@ public class ImageMessageToWX extends MessageToWX {
 		return Image.getMediaId();
 	}
 
-	@XmlRootElement
-	@XmlAccessorType(XmlAccessType.FIELD)
-	class Image {
-		@XmlElement(name = "MediaId")
-		private String MediaId;
-
-		public String getMediaId() {
-			return MediaId;
-		}
-
-		public void setMediaId(String mediaId) {
-			MediaId = mediaId;
-		}
-
-	}
-
 	public ImageMessageToWX() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -63,6 +47,22 @@ public class ImageMessageToWX extends MessageToWX {
 	public ImageMessageToWX(String toUserName, String fromUserName) {
 		super(toUserName, fromUserName, WXType.IMAGE);
 		// TODO Auto-generated constructor stub
+	}
+
+}
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+class Image {
+	@XmlElement(name = "MediaId")
+	private String MediaId;
+
+	public String getMediaId() {
+		return MediaId;
+	}
+
+	public void setMediaId(String mediaId) {
+		MediaId = mediaId;
 	}
 
 }

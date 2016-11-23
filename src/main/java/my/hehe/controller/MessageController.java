@@ -28,20 +28,6 @@ public class MessageController {
 	@Resource
 	AuthService authService;
 
-	// @RequestMapping(path = "/hehe/xml", produces = XML_TYPE)
-	// public @ResponseBody
-	// TextMessage4WX heheX() {
-	//
-	// return new TextMessage4WX("toUserName", "fromUserName",
-	// new Date().getTime(), "msgType", "content", "msgId");
-	// }
-	//
-	// @RequestMapping(path = "/hehe/json", produces = JSON_TYPE)
-	// public @ResponseBody
-	// Date heheJ() {
-	// return new Date();
-	// }
-
 	@RequestMapping(path = "/wx", method = RequestMethod.GET)
 	public String WX(@RequestParam String signature,
 			@RequestParam String timestamp, @RequestParam String nonce,
@@ -50,14 +36,15 @@ public class MessageController {
 	}
 
 	@RequestMapping(path = "/wx", method = RequestMethod.POST, produces = XML_TYPE)
-	// headers = "content-type=application/xml",
+	// headers = "content-type=application/xml"
 	public Object getMessage(
 			@RequestBody(required = false) final MessageBody4WX message) {
-//		System.out.println(message.toString());
-		return msgService.receive(message);//
+
+		Object object=msgService.receive(message);
+		return (object!=null)?object:"success";//
 
 	}
-	// @RequestMapping(path = "/receive2", method = RequestMethod.POST)
+	// @RequestMapping(path = "/wx", method = RequestMethod.POST)
 	// public Object getMessage2(
 	// HttpServletRequest request) throws UnsupportedEncodingException,
 	// IOException {
