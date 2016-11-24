@@ -6,16 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import my.hehe.entity.Token;
-import my.hehe.entity.message.MessageBody4WX;
 import my.hehe.entity.message.to.customer.Message;
 import my.hehe.entity.message.to.customer.TextMessage;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 public class WXApi {

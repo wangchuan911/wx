@@ -3,8 +3,6 @@ package my.hehe;
 import java.util.Date;
 
 import my.hehe.entity.message.MessageBody4WX;
-import my.hehe.entity.message.from.ImageMessageFromWX;
-import my.hehe.entity.message.from.MessageFromWX;
 import my.hehe.entity.message.from.TextMessageFromWX;
 
 import org.springframework.http.HttpEntity;

@@ -1,19 +1,17 @@
 package my.hehe.controller;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import my.hehe.entity.message.MessageBody4WX;
-import my.hehe.entity.message.from.TextMessageFromWX;
 import my.hehe.service.AuthService;
 import my.hehe.service.MessageServiceImp;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qq.weixin.mp.aes.AesException;
@@ -42,7 +40,6 @@ public class MessageController {
 
 		Object object=msgService.receive(message);
 		return (object!=null)?object:"success";//
-
 	}
 	// @RequestMapping(path = "/wx", method = RequestMethod.POST)
 	// public Object getMessage2(
@@ -58,5 +55,6 @@ public class MessageController {
 	// }
 	// return "success";
 	// }
+	
 
 }

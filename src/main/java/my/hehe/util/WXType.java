@@ -8,4 +8,6 @@ public class WXType {
 	static final public String SHORT_VIDEO = "shortvideo";
 	static final public String LOCATION = "location";
 	static final public String LINK = "link";
+	static final public String MUSIC = "music";
+	static final public String ARTICLE = "news";
 }

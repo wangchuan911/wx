@@ -3,14 +3,11 @@ package my.hehe.util;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
-import java.util.Map;
-
 import my.hehe.entity.HtmlInfo;
 import my.hehe.service.parser.HtmlHandler;
 import my.hehe.service.parser.HtmlPageParser;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.client.RestTemplate;
 
 public class TSTDTZApi {
 //	private RestTemplate template;

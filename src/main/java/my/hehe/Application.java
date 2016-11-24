@@ -6,11 +6,14 @@ import javax.servlet.Filter;
 import my.hehe.util.TSTDTZApi;
 import my.hehe.util.WXApi;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
@@ -24,9 +27,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @SpringBootApplication
 @EnableScheduling
-@PropertySources({ @PropertySource("classpath:/config/application.yml"),
-		@PropertySource(value="classpath:/config/api.properties",encoding="utf-8") })
-//sometimes  the  properties  must  be  set  "classpath:/resources/config/application.yml" ,because it  don't  find it ,i don't know 
+@PropertySources({
+		@PropertySource("classpath:/config/application.yml"),
+		@PropertySource(value = "classpath:/config/api.properties", encoding = "utf-8") })
+// sometimes the properties must be set
+// "classpath:/resources/config/application.yml" ,because it don't find it ,i
+// don't know
 public class Application extends SpringBootServletInitializer implements
 		EmbeddedServletContainerCustomizer {
 
@@ -40,7 +46,7 @@ public class Application extends SpringBootServletInitializer implements
 
 	@Bean
 	public TSTDTZApi getTstdtzApi() {
-//		return new TSTDTZApi(new RestTemplate());
+		// return new TSTDTZApi(new RestTemplate());
 		return new TSTDTZApi();
 	}
 
@@ -54,8 +60,8 @@ public class Application extends SpringBootServletInitializer implements
 			}
 		};
 	}
-
-	@Bean
+	/*                         filter_start                            */
+//	@Bean
 	public Filter characterEncodingFilter() {
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
 		characterEncodingFilter.setEncoding("UTF-8");
@@ -63,6 +69,19 @@ public class Application extends SpringBootServletInitializer implements
 		return characterEncodingFilter;
 	}
 
+	@Autowired
+	private AutowireCapableBeanFactory beanFactory;
+
+	@Bean
+	public FilterRegistrationBean myFilter() {
+		FilterRegistrationBean registration = new FilterRegistrationBean();
+		Filter myFilter = characterEncodingFilter();
+		beanFactory.autowireBean(myFilter);
+		registration.setFilter(myFilter);
+		registration.addUrlPatterns("/wx");
+		return registration;
+	}
+/*                         filter_end                                 */
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 
