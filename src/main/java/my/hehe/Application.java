@@ -3,6 +3,7 @@ package my.hehe;
 import javax.annotation.Resource;
 import javax.servlet.Filter;
 
+import my.hehe.filter.HttpEncryptFilter;
 import my.hehe.util.TSTDTZApi;
 import my.hehe.util.WXApi;
 
@@ -75,7 +76,8 @@ public class Application extends SpringBootServletInitializer implements
 	@Bean
 	public FilterRegistrationBean myFilter() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
-		Filter myFilter = characterEncodingFilter();
+		Filter myFilter = new HttpEncryptFilter();
+//				characterEncodingFilter();
 		beanFactory.autowireBean(myFilter);
 		registration.setFilter(myFilter);
 		registration.addUrlPatterns("/wx");
