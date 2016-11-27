@@ -26,6 +26,9 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.qq.weixin.mp.aes.AesException;
+import com.qq.weixin.mp.aes.WXBizMsgCrypt;
+
 @SpringBootApplication
 @EnableScheduling
 @PropertySources({
@@ -40,9 +43,13 @@ public class Application extends SpringBootServletInitializer implements
 	@Resource
 	private WXApi api;
 
+	
 	@Bean
-	public WXApi getWXApi() {
-		return new WXApi(new RestTemplate());
+	public WXApi getWXApi() throws AesException {
+		WXApi api= new WXApi();
+		api.setTemplate(new RestTemplate());
+		api.intiCrypt();;
+		return api;
 	}
 
 	@Bean
@@ -62,7 +69,7 @@ public class Application extends SpringBootServletInitializer implements
 		};
 	}
 	/*                         filter_start                            */
-//	@Bean
+	@Bean
 	public Filter characterEncodingFilter() {
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
 		characterEncodingFilter.setEncoding("UTF-8");
@@ -74,13 +81,26 @@ public class Application extends SpringBootServletInitializer implements
 	private AutowireCapableBeanFactory beanFactory;
 
 	@Bean
-	public FilterRegistrationBean myFilter() {
+	public FilterRegistrationBean getHttpEncrypt() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
-		Filter myFilter = new HttpEncryptFilter();
+		Filter EncryptFilter = new HttpEncryptFilter();
 //				characterEncodingFilter();
-		beanFactory.autowireBean(myFilter);
-		registration.setFilter(myFilter);
-		registration.addUrlPatterns("/wx");
+	
+		beanFactory.autowireBean(EncryptFilter);
+		registration.setFilter(EncryptFilter);
+		registration.addUrlPatterns("/*");
+		registration.setOrder(-65534);
+		return registration;
+	}
+	@Bean
+	public FilterRegistrationBean getCharacterEncodingFilter() {
+		FilterRegistrationBean registration = new FilterRegistrationBean();
+	
+		Filter EncodingFilter=characterEncodingFilter();
+		beanFactory.autowireBean(EncodingFilter);
+		registration.setFilter(EncodingFilter);
+		registration.setOrder(-65535);
+		registration.addUrlPatterns("/*");
 		return registration;
 	}
 /*                         filter_end                                 */

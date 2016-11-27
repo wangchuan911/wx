@@ -52,6 +52,8 @@ public class MessageBody4WX {
 	private String Content;
 	
 	private String Recognition;
+	
+	private String Encrypt;
 
 	@XmlElement(name = "ToUserName")
 	public String getToUserName() {
@@ -141,6 +143,16 @@ public class MessageBody4WX {
 	@XmlElement(name = "Recognition")
 	public String getRecognition() {
 		return Recognition;
+	}
+
+	
+	@XmlElement(name = "Encrypt")
+	public String getEncrypt() {
+		return Encrypt;
+	}
+
+	public void setEncrypt(String encrypt) {
+		Encrypt = encrypt;
 	}
 
 	public void setRecognition(String recognition) {
@@ -259,8 +271,13 @@ public class MessageBody4WX {
 		return builder.toString();
 	}
 
-
-
+	public MessageBody4WX decrypt(){
+		if(	this.Encrypt==null){
+			return this;
+		}else {
+		}
+		return null;
+	}
 
 
 }

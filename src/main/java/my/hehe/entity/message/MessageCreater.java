@@ -68,9 +68,9 @@ public class MessageCreater {
 
 				}
 				for (Field field : clazz_super_field) {
-//					if (field.getName().equals("MsgType")) {
-//						continue;
-//					}
+					if (field.getName().equals("MsgType")) {
+						continue;
+					}
 					field.setAccessible(true);
 					Field body_clazz_field = body_clazz.getDeclaredField(field
 							.getName());

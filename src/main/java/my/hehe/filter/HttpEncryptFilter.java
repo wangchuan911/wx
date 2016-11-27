@@ -2,9 +2,13 @@ package my.hehe.filter;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import javax.security.sasl.AuthenticationException;
@@ -17,6 +21,7 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
@@ -31,9 +36,33 @@ public class HttpEncryptFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-
+		AuthenticationResponseWrapper responseWrapper = null;
 		chain.doFilter(new AuthenticationRequestWrapper(
-				(HttpServletRequest) request), response);
+				(HttpServletRequest) request),
+				responseWrapper = new AuthenticationResponseWrapper(
+						(HttpServletResponse) response));
+
+		// chain.doFilter(new AuthenticationRequestWrapper(
+		// (HttpServletRequest) request), response);
+
+		byte[] response_body = responseWrapper.getResponseData();
+		System.out.print("filter get the response body:");
+		System.out.println(new String(response_body,response.getCharacterEncoding()));
+		ServletOutputStream out = null;
+		try {
+			out =response.getOutputStream();
+			out.write(response_body);
+			out.flush();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} 
+//		finally {
+//			if (out != null) {
+//				out.close();
+//			}
+//		}
+
 	}
 
 	public void destroy() {
@@ -55,19 +84,19 @@ class AuthenticationRequestWrapper extends HttpServletRequestWrapper {
 	@Override
 	public ServletInputStream getInputStream() throws IOException {
 		// TODO Auto-generated method stub
-		
+
 		final StringBuilder sb = new StringBuilder();
 		BufferedReader bufferedReader = null;
 		try {
 			// read the payload into the StringBuilder 
 			InputStream inputStream = request.getInputStream();
-			System.out.println(((ServletInputStream)inputStream).isFinished());
-			System.out.println(((ServletInputStream)inputStream).isReady());
-			
-			System.out.println(inputStream.getClass().getName());
+			// System.out.println(((ServletInputStream)
+			// inputStream).isFinished());
+			// System.out.println(((ServletInputStream) inputStream).isReady());
+			// System.out.println(inputStream.getClass().getName());
 			if (inputStream != null) {
 				bufferedReader = new BufferedReader(new InputStreamReader(
-						inputStream));
+						inputStream,request.getCharacterEncoding()));
 				char[] charBuffer = new char[128];
 				int bytesRead = -1;
 				while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
@@ -76,7 +105,9 @@ class AuthenticationRequestWrapper extends HttpServletRequestWrapper {
 			} else {
 				sb.append("");
 			}
-			
+			// System.out.println(((ServletInputStream)
+			// inputStream).isFinished());
+			// System.out.println(((ServletInputStream) inputStream).isReady());
 		} catch (IOException ex) {
 			throw new AuthenticationException(
 					"Error reading the request payload", ex);
@@ -95,7 +126,7 @@ class AuthenticationRequestWrapper extends HttpServletRequestWrapper {
 		byte[] buffer = null;
 
 		try {
-			buffer = sb.toString().getBytes("UTF-8");
+			buffer = sb.toString().getBytes(request.getCharacterEncoding());
 
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -133,18 +164,86 @@ class AuthenticationRequestWrapper extends HttpServletRequestWrapper {
 
 	// http://blog.chinaunix.net/uid-20783755-id-4729940.html
 }
+
 class AuthenticationResponseWrapper extends HttpServletResponseWrapper {
 
-	HttpServletResponse response=null;
-	public AuthenticationResponseWrapper(HttpServletResponse response) {
+	private ByteArrayOutputStream buffer = null;
+	private ServletOutputStream out = null;
+	private PrintWriter writer = null;
+
+	public AuthenticationResponseWrapper(HttpServletResponse response)
+			throws IOException {
 		super(response);
-		this.response=response;
+		buffer = new ByteArrayOutputStream();
+		out = new WapperedOutputStream(buffer);
+		writer = new PrintWriter(new OutputStreamWriter(buffer,
+				this.getCharacterEncoding()));
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public PrintWriter getWriter() throws IOException {
+		// TODO Auto-generated method stub
+		return writer;
+	}
+
 	@Override
 	public ServletOutputStream getOutputStream() throws IOException {
 		// TODO Auto-generated method stub
-		return super.getOutputStream();
+		return out;
 	}
-	
+
+	@Override
+	public void flushBuffer() throws IOException {
+		// TODO Auto-generated method stub
+		if (out != null) {
+			out.flush();
+		}
+		if (writer != null) {
+			writer.flush();
+		}
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		buffer.reset();
+	}
+
+	public byte[] getResponseData() throws IOException {
+		flushBuffer();
+		return buffer.toByteArray();
+	}
+
+	private class WapperedOutputStream extends ServletOutputStream {
+		private ByteArrayOutputStream bos = null;
+
+		public WapperedOutputStream(ByteArrayOutputStream stream)
+				throws IOException {
+			bos = stream;
+		}
+
+		@Override
+		public void write(int b) throws IOException {
+			bos.write(b);
+		}
+
+		@Override
+		public void write(byte[] b) throws IOException {
+			bos.write(b, 0, b.length);
+		}
+
+		@Override
+		public boolean isReady() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public void setWriteListener(WriteListener arg0) {
+			// TODO Auto-generated method stub
+
+		}
+	}
+
 }

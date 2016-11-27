@@ -15,6 +15,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
+import com.qq.weixin.mp.aes.AesException;
+import com.qq.weixin.mp.aes.WXBizMsgCrypt;
+
 public class WXApi {
 	@Value("${weixin.appID}")
 	private String appID;
@@ -33,46 +36,39 @@ public class WXApi {
 
 	@Value("${weixin.getIPs}")
 	private String getIPs_url;
+	
+	@Value("${weixin.key}")
+	private String key;
 
-	private Token token;
+	private Token access_token;
 
 	private static Map<String, String> map;
 
-	// public String getAppID() {
-	// return appID;
-	// }
-	//
-	// public String getAppsecret() {
-	// return appsecret;
-	// }
-	//
-	// public String getApptoken() {
-	// return apptoken;
-	// }
-	//
-	// public void setAppID(String appID) {
-	// this.appID = appID;
-	// }
-	//
-	// public void setAppsecret(String appsecret) {
-	// this.appsecret = appsecret;
-	// }
-	//
-	// public void setApptoken(String apptoken) {
-	// this.apptoken = apptoken;
-	// }
-
 	private RestTemplate template;
-
-	public WXApi(RestTemplate template) {
-		this.template = template;
+	
+	private WXBizMsgCrypt crypt;
+	
+	
+	public String getAppID() {
+		return appID;
 	}
+
+	public String getApptoken() {
+		return apptoken;
+	}
+
 
 	public WXApi() {
+
 	}
+
 
 	public void setTemplate(RestTemplate template) {
 		this.template = template;
+	}
+	public void intiCrypt() throws AesException {
+		if(crypt==null){
+		this.crypt = new WXBizMsgCrypt(apptoken, key, appID);}
 	}
 	
 
@@ -83,13 +79,13 @@ public class WXApi {
 			map.put("secret", this.appsecret);
 		}
 		if (early != 0
-				&& token != null
-				&& (token.getExpires_date().getTimeInMillis()
+				&& access_token != null
+				&& (access_token.getExpires_date().getTimeInMillis()
 						- (Calendar.getInstance().getTimeInMillis()) > (early * 1000 * 60))) {
 			return;
 		}
-		this.token = template.getForObject(getToken_url, Token.class, map);
-		map.put("token", token.getAccess_token());
+		this.access_token = template.getForObject(getToken_url, Token.class, map);
+		map.put("token", access_token.getAccess_token());
 //		System.out.println("token:"+token.getAccess_token());
 	}
 
@@ -102,7 +98,7 @@ public class WXApi {
 			if(map.size()<2){
 				freshToken();
 			}
-			map.put("token", token.getAccess_token());
+			map.put("token", access_token.getAccess_token());
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -138,6 +134,17 @@ public class WXApi {
 		}
 		return ips_str;
 
+	}
+	public String verifyUrl(String msgSignature,String timeStamp,String nonce,String echoStr) throws AesException{
+		return crypt.verifyUrl(msgSignature, timeStamp, nonce, echoStr);
+	}
+	
+	public String decryptMsg(String msgSignature,String  timeStamp,String  nonce,String  postData) throws AesException{
+		return crypt.decryptMsg(msgSignature, timeStamp, nonce, postData);
+	}
+	
+	public String ecryptMsg(String replyMsg,String  timeStamp,String  nonce) throws AesException{
+		return crypt.encryptMsg(replyMsg, timeStamp, nonce);
 	}
 }
 

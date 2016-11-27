@@ -12,8 +12,8 @@ import org.springframework.web.client.RestTemplate;
 
 public class Test {
 	public static void main(String[] args) {
+		demo2();
 		demo3();
-
 	}
 
 //	public static void demo() {
@@ -38,7 +38,7 @@ public class Test {
 //	}
 	public static void demo2() {
 		try {
-			String uri = "http://localhost/receive2";//139.199.164.14
+			String uri = "http://localhost/wx";//139.199.164.14
 //			uri = "http://139.199.164.14/receive";
 			RestTemplate template = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
@@ -68,7 +68,7 @@ public class Test {
 			m.setMsgType("image");
 			m.setToUserName("c");
 			m.setPicUrl("aaaa");
-			m.setMediaId("aaaaaa");
+			m.setMediaId("啊實打實");
 			HttpEntity<MessageBody4WX> entity = new HttpEntity<MessageBody4WX>(
 					m, headers);
 
