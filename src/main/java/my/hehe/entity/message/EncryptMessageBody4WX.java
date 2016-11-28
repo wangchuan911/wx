@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="xml")
 @XmlAccessorType(XmlAccessType.FIELD)
-class EncryptMessageBody4WX{
+public class EncryptMessageBody4WX{
 	private String ToUserName;
 	private String Encrypt;
 	public String getToUserName() {

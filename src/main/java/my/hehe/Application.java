@@ -42,6 +42,8 @@ public class Application extends SpringBootServletInitializer implements
 
 	@Resource
 	private WXApi api;
+	@Autowired(required=true)
+	HttpEncryptFilter httpEncryptFilter;
 
 	
 	@Bean
@@ -82,11 +84,11 @@ public class Application extends SpringBootServletInitializer implements
 	@Bean
 	public FilterRegistrationBean getHttpEncrypt() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
-		Filter EncryptFilter = new HttpEncryptFilter();
+//		Filter httpEncryptFilter = new HttpEncryptFilter();
 //				characterEncodingFilter();
 	
-		beanFactory.autowireBean(EncryptFilter);
-		registration.setFilter(EncryptFilter);
+		beanFactory.autowireBean(httpEncryptFilter);
+		registration.setFilter(httpEncryptFilter);
 		registration.addUrlPatterns("/*");
 		registration.setOrder(-65534);
 		return registration;

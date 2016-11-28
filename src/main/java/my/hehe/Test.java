@@ -79,5 +79,10 @@ public class Test {
 			e.printStackTrace();
 		}
 	}
+	public String demo4() {
+		String str="Ffg7NXqoH79r2j5hY3iP3XVY0Qm3Wj97Ii1vGCkhYvtg7R0lImuyAE12201LMNni51xJMvjlRBFA9XpD+GAGCK/M7lOx9mYitbknotiqhQF6FmlW4LTrlszF1DgwIRgb6fga6/dhaFpaAAqMDHBUAzwLTrJ7idourZYI5+B+03kY9FUYnIK5gB2xsAibRdbCDIaKvwsKtSOuryBhizuP1uz/tf1sjiE5j8VkMmAvulAHqzv8wOhINP/O9n2OeW5vA7OLQWecmlyBXarxRl/630qm7AnIvUO+SDLNDhi6XJAqbyFbUfDOLgIXNmV5tpO+l4EgLKCjGX5/3mnuWGSgtZVF8cEZXUitoG1bUWhWTAXhAwDtXy+yeLxr7wi3QM3TAIgBATYwxGlFlf5PKZIeqC2rny/IDqQhWHFG/4hIlz8=";
+		return str;
+		
+	}
 
 }

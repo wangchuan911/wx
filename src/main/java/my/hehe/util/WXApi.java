@@ -1,5 +1,7 @@
 package my.hehe.util;
 
+import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -70,7 +72,7 @@ public class WXApi {
 			synchronized (this) {
 				if (crypt == null) {
 					synchronized (this) {
-						System.out.println(apptoken+":"+ key+":"+  appID);
+						System.out.println(apptoken + ":" + key + ":" + appID);
 						this.crypt = new WXBizMsgCrypt(apptoken, key, appID);
 					}
 				}
@@ -145,8 +147,12 @@ public class WXApi {
 
 	public String verifyUrl(String msgSignature, String timeStamp,
 			String nonce, String echoStr) throws AesException {
-		intiCrypt();
-		return crypt.verifyUrl(msgSignature, timeStamp, nonce, echoStr);
+		
+		if(msgSignature.equals(getSHA1(apptoken, timeStamp, nonce))){
+			return echoStr;
+		}else {
+			return null;
+		}
 	}
 
 	public String decryptMsg(String msgSignature, String timeStamp,
@@ -159,6 +165,39 @@ public class WXApi {
 			throws AesException {
 		intiCrypt();
 		return crypt.encryptMsg(replyMsg, timeStamp, nonce);
+	}
+
+	public static String getSHA1(String token, String timestamp, String nonce)
+			 {
+		try {
+			String[] array = new String[] { token, timestamp, nonce };
+			StringBuffer sb = new StringBuffer();
+			// 瀛楃涓叉帓搴�
+			Arrays.sort(array);
+			for (int i = 0; i < 3; i++) {
+				sb.append(array[i]);
+			}
+			String str = sb.toString();
+			// SHA1绛惧悕鐢熸垚
+			MessageDigest md = MessageDigest.getInstance("SHA-1");
+			md.update(str.getBytes());
+			byte[] digest = md.digest();
+
+			StringBuffer hexstr = new StringBuffer();
+			String shaHex = "";
+			for (int i = 0; i < digest.length; i++) {
+				shaHex = Integer.toHexString(digest[i] & 0xFF);
+				if (shaHex.length() < 2) {
+					hexstr.append(0);
+				}
+				hexstr.append(shaHex);
+			}
+			return hexstr.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return null;
 	}
 }
 

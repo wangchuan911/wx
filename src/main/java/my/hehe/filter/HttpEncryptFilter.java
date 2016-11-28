@@ -10,7 +10,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.security.sasl.AuthenticationException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -26,8 +28,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import my.hehe.entity.message.EncryptMessageBody4WX;
+import my.hehe.entity.message.MessageBody4WX;
+import my.hehe.util.WXApi;
+
+@Repository
 public class HttpEncryptFilter implements Filter {
+	@Autowired(required = true)
+	private WXApi api;
 
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
@@ -36,32 +51,32 @@ public class HttpEncryptFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		AuthenticationResponseWrapper responseWrapper = null;
-		chain.doFilter(new AuthenticationRequestWrapper(
-				(HttpServletRequest) request),
-				responseWrapper = new AuthenticationResponseWrapper(
-						(HttpServletResponse) response));
-
-		// chain.doFilter(new AuthenticationRequestWrapper(
-		// (HttpServletRequest) request), response);
+		AuthenticationRequestWrapper requestWrapper=new AuthenticationRequestWrapper(
+				(HttpServletRequest) request);
+		AuthenticationResponseWrapper responseWrapper = new AuthenticationResponseWrapper(
+				(HttpServletResponse) response);
+		// before
+		chain.doFilter(requestWrapper,responseWrapper);
+		// after
 
 		byte[] response_body = responseWrapper.getResponseData();
 		System.out.print("filter get the response body:");
-		System.out.println(new String(response_body,response.getCharacterEncoding()));
+		System.out.println(new String(response_body, response
+				.getCharacterEncoding()));
 		ServletOutputStream out = null;
 		try {
-			out =response.getOutputStream();
+			out = response.getOutputStream();
 			out.write(response_body);
 			out.flush();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		} 
-//		finally {
-//			if (out != null) {
-//				out.close();
-//			}
-//		}
+		}
+		// finally {
+		// if (out != null) {
+		// out.close();
+		// }
+		// }
 
 	}
 
@@ -70,10 +85,54 @@ public class HttpEncryptFilter implements Filter {
 
 	}
 
+	public static void objectToXmlStr(Object obj,
+			@SuppressWarnings("rawtypes") Class beanClass, OutputStreamWriter os)
+			throws Exception {
+		JAXBContext context = JAXBContext.newInstance(beanClass);
+		// 根据上下文获取marshaller对象
+		Marshaller marshaller = context.createMarshaller();
+		// 设置编码字符集
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+		// 格式化XML输出，有分行和缩进
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		// 打印到控制台
+		marshaller.marshal(obj, os);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> T xmlStrToObject(InputStream is, Class<T> beanClass)
+			throws Exception {
+		// T bean = beanClass.newInstance();
+		JAXBContext context = JAXBContext.newInstance(beanClass);
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+		T bean = (T) unmarshaller.unmarshal(is);
+		return bean;
+	}
+
+	public static String MessageConverter(HttpServletRequest request,
+			String data,WXApi api) throws UnsupportedEncodingException, Exception {
+		Map<String, String[]> map = request.getParameterMap();
+		for (String str : map.keySet()) {
+			System.out.println(str + ":" + map.get(str)[0]);
+		}
+		String data4b = xmlStrToObject(
+				new ByteArrayInputStream(data.getBytes(request
+						.getCharacterEncoding())), EncryptMessageBody4WX.class)
+				.getEncrypt();
+		String a = map.get("signature")[0];
+		String b = map.get("timestamp")[0];
+		String c = map.get("nonce")[0];
+		System.out.println(a+":"+b+":"+c+":"+data4b+":"+api);
+		return api.decryptMsg(a, b, c, data4b);
+	}
 }
 
 class AuthenticationRequestWrapper extends HttpServletRequestWrapper {
 	private HttpServletRequest request;
+	private WXApi api;
+	public void setApi(WXApi api) {
+		this.api = api;
+	}
 
 	public AuthenticationRequestWrapper(HttpServletRequest request)
 			throws AuthenticationException {
@@ -96,7 +155,7 @@ class AuthenticationRequestWrapper extends HttpServletRequestWrapper {
 			// System.out.println(inputStream.getClass().getName());
 			if (inputStream != null) {
 				bufferedReader = new BufferedReader(new InputStreamReader(
-						inputStream,request.getCharacterEncoding()));
+						inputStream, request.getCharacterEncoding()));
 				char[] charBuffer = new char[128];
 				int bytesRead = -1;
 				while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
@@ -122,6 +181,14 @@ class AuthenticationRequestWrapper extends HttpServletRequestWrapper {
 		}
 		System.out.print("filter get the request body:");
 		System.out.println(sb.toString());
+		try {
+
+			System.out.println(HttpEncryptFilter.MessageConverter(request,
+					sb.toString(),api));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		byte[] buffer = null;
 

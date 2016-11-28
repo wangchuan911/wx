@@ -35,18 +35,7 @@ public class MessageController {
 	public String WX(@RequestParam String signature,
 			@RequestParam String timestamp, @RequestParam String nonce,
 			@RequestParam String echostr) throws AesException {
-//		return 
-		System.out.println(signature+":"+nonce+":"+timestamp+":"+echostr);
-		System.out.println("=================================================");
-		try {
-			System.out.println(authService.wxToeknAuth(signature, timestamp, nonce, echostr));
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		
-		System.out.println("=================================================");
-		return echostr;
+		return authService.wxToeknAuth(signature, timestamp, nonce, echostr);
 	}
 
 	@RequestMapping(path = "/wx", method = RequestMethod.POST, produces = XML_TYPE)

@@ -4,7 +4,6 @@ import javax.annotation.Resource;
 
 import my.hehe.util.WXApi;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.qq.weixin.mp.aes.AesException;
