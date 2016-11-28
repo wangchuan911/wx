@@ -48,7 +48,6 @@ public class Application extends SpringBootServletInitializer implements
 	public WXApi getWXApi() throws AesException {
 		WXApi api= new WXApi();
 		api.setTemplate(new RestTemplate());
-		api.intiCrypt();;
 		return api;
 	}
 

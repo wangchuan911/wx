@@ -11,6 +11,7 @@ import my.hehe.service.AuthService;
 import my.hehe.service.MessageServiceImp;
 
 import org.springframework.http.HttpRequest;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,10 +32,21 @@ public class MessageController {
 	AuthService authService;
 
 	@RequestMapping(path = "/wx", method = RequestMethod.GET)
-	public String WX(
-			RequestParamer paramer,
+	public String WX(@RequestParam String signature,
+			@RequestParam String timestamp, @RequestParam String nonce,
 			@RequestParam String echostr) throws AesException {
-		return authService.wxToeknAuth(paramer.getSignature(),paramer.getTimestamp(),paramer.getNonce(), echostr);
+//		return 
+		System.out.println(signature+":"+nonce+":"+timestamp+":"+echostr);
+		System.out.println("=================================================");
+		try {
+			System.out.println(authService.wxToeknAuth(signature, timestamp, nonce, echostr));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		System.out.println("=================================================");
+		return echostr;
 	}
 
 	@RequestMapping(path = "/wx", method = RequestMethod.POST, produces = XML_TYPE)
@@ -61,28 +73,34 @@ public class MessageController {
 	// }
 
 }
-class RequestParamer{
+
+class RequestParamer {
 	private String signature;
 	private String timestamp;
 	private String nonce;
+
 	public String getSignature() {
 		return signature;
 	}
+
 	public String getTimestamp() {
 		return timestamp;
 	}
+
 	public String getNonce() {
 		return nonce;
 	}
+
 	public void setSignature(String signature) {
 		this.signature = signature;
 	}
+
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
+
 	public void setNonce(String nonce) {
 		this.nonce = nonce;
 	}
-	
-}
 
+}

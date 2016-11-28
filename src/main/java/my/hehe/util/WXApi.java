@@ -36,7 +36,7 @@ public class WXApi {
 
 	@Value("${weixin.getIPs}")
 	private String getIPs_url;
-	
+
 	@Value("${weixin.key}")
 	private String key;
 
@@ -45,10 +45,9 @@ public class WXApi {
 	private static Map<String, String> map;
 
 	private RestTemplate template;
-	
+
 	private WXBizMsgCrypt crypt;
-	
-	
+
 	public String getAppID() {
 		return appID;
 	}
@@ -57,20 +56,27 @@ public class WXApi {
 		return apptoken;
 	}
 
-
 	public WXApi() {
 
 	}
 
-
 	public void setTemplate(RestTemplate template) {
 		this.template = template;
 	}
+
 	public void intiCrypt() throws AesException {
-		if(crypt==null){
-		this.crypt = new WXBizMsgCrypt(apptoken, key, appID);}
+
+		if (crypt == null) {
+			synchronized (this) {
+				if (crypt == null) {
+					synchronized (this) {
+						System.out.println(apptoken+":"+ key+":"+  appID);
+						this.crypt = new WXBizMsgCrypt(apptoken, key, appID);
+					}
+				}
+			}
+		}
 	}
-	
 
 	public void freshToken(int early) {
 		if (map == null) {
@@ -84,9 +90,10 @@ public class WXApi {
 						- (Calendar.getInstance().getTimeInMillis()) > (early * 1000 * 60))) {
 			return;
 		}
-		this.access_token = template.getForObject(getToken_url, Token.class, map);
+		this.access_token = template.getForObject(getToken_url, Token.class,
+				map);
 		map.put("token", access_token.getAccess_token());
-//		System.out.println("token:"+token.getAccess_token());
+		// System.out.println("token:"+token.getAccess_token());
 	}
 
 	public void freshToken() {
@@ -94,8 +101,8 @@ public class WXApi {
 	}
 
 	public <T extends Message> void sendToUser(T t) {
-		try {			
-			if(map.size()<2){
+		try {
+			if (map.size() < 2) {
 				freshToken();
 			}
 			map.put("token", access_token.getAccess_token());
@@ -135,15 +142,22 @@ public class WXApi {
 		return ips_str;
 
 	}
-	public String verifyUrl(String msgSignature,String timeStamp,String nonce,String echoStr) throws AesException{
+
+	public String verifyUrl(String msgSignature, String timeStamp,
+			String nonce, String echoStr) throws AesException {
+		intiCrypt();
 		return crypt.verifyUrl(msgSignature, timeStamp, nonce, echoStr);
 	}
-	
-	public String decryptMsg(String msgSignature,String  timeStamp,String  nonce,String  postData) throws AesException{
+
+	public String decryptMsg(String msgSignature, String timeStamp,
+			String nonce, String postData) throws AesException {
+		intiCrypt();
 		return crypt.decryptMsg(msgSignature, timeStamp, nonce, postData);
 	}
-	
-	public String ecryptMsg(String replyMsg,String  timeStamp,String  nonce) throws AesException{
+
+	public String ecryptMsg(String replyMsg, String timeStamp, String nonce)
+			throws AesException {
+		intiCrypt();
 		return crypt.encryptMsg(replyMsg, timeStamp, nonce);
 	}
 }
