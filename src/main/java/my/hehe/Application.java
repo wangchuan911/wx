@@ -42,7 +42,7 @@ public class Application extends SpringBootServletInitializer implements
 
 	@Resource
 	private WXApi api;
-	@Autowired(required=true)
+	@Resource
 	HttpEncryptFilter httpEncryptFilter;
 
 	

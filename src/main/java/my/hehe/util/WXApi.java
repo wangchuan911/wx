@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
 import com.qq.weixin.mp.aes.AesException;
+import com.qq.weixin.mp.aes.SHA1;
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 
 public class WXApi {
@@ -72,7 +73,6 @@ public class WXApi {
 			synchronized (this) {
 				if (crypt == null) {
 					synchronized (this) {
-						System.out.println(apptoken + ":" + key + ":" + appID);
 						this.crypt = new WXBizMsgCrypt(apptoken, key, appID);
 					}
 				}
@@ -147,10 +147,9 @@ public class WXApi {
 
 	public String verifyUrl(String msgSignature, String timeStamp,
 			String nonce, String echoStr) throws AesException {
-		
-		if(msgSignature.equals(getSHA1(apptoken, timeStamp, nonce))){
+		if (msgSignature.equals(SHA1.getSHA1(apptoken, timeStamp, nonce))) {
 			return echoStr;
-		}else {
+		} else {
 			return null;
 		}
 	}
@@ -165,39 +164,6 @@ public class WXApi {
 			throws AesException {
 		intiCrypt();
 		return crypt.encryptMsg(replyMsg, timeStamp, nonce);
-	}
-
-	public static String getSHA1(String token, String timestamp, String nonce)
-			 {
-		try {
-			String[] array = new String[] { token, timestamp, nonce };
-			StringBuffer sb = new StringBuffer();
-			// 瀛楃涓叉帓搴�
-			Arrays.sort(array);
-			for (int i = 0; i < 3; i++) {
-				sb.append(array[i]);
-			}
-			String str = sb.toString();
-			// SHA1绛惧悕鐢熸垚
-			MessageDigest md = MessageDigest.getInstance("SHA-1");
-			md.update(str.getBytes());
-			byte[] digest = md.digest();
-
-			StringBuffer hexstr = new StringBuffer();
-			String shaHex = "";
-			for (int i = 0; i < digest.length; i++) {
-				shaHex = Integer.toHexString(digest[i] & 0xFF);
-				if (shaHex.length() < 2) {
-					hexstr.append(0);
-				}
-				hexstr.append(shaHex);
-			}
-			return hexstr.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
-		return null;
 	}
 }
 

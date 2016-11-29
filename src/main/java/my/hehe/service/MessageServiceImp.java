@@ -35,6 +35,7 @@ public class MessageServiceImp {
 			if (message.getMsgType().equals(WXType.TEXT)) {
 				return processer.textProcess(MessageCreater.messageConverter(
 						message, TextMessageFromWX.class));
+//				return null;
 			} else if (message.getMsgType().equals(WXType.IMAGE)) {
 				return processer.imageProcess(MessageCreater.messageConverter(
 						message, ImageMessageFromWX.class));

@@ -41,8 +41,8 @@ public class MessageController {
 	@RequestMapping(path = "/wx", method = RequestMethod.POST, produces = XML_TYPE)
 	// headers = "content-type=application/xml"
 	public Object getMessage(
-			@RequestBody(required = false) final MessageBody4WX message,
-			RequestParamer paramer) {
+			@RequestBody(required = false) final MessageBody4WX message) {
+//		System.out.println(message);
 		Object object = msgService.receive(message);
 		return (object != null) ? object : "success";//
 	}
@@ -62,34 +62,34 @@ public class MessageController {
 	// }
 
 }
-
-class RequestParamer {
-	private String signature;
-	private String timestamp;
-	private String nonce;
-
-	public String getSignature() {
-		return signature;
-	}
-
-	public String getTimestamp() {
-		return timestamp;
-	}
-
-	public String getNonce() {
-		return nonce;
-	}
-
-	public void setSignature(String signature) {
-		this.signature = signature;
-	}
-
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public void setNonce(String nonce) {
-		this.nonce = nonce;
-	}
-
-}
+//
+//class RequestParamer {
+//	private String signature;
+//	private String timestamp;
+//	private String nonce;
+//
+//	public String getSignature() {
+//		return signature;
+//	}
+//
+//	public String getTimestamp() {
+//		return timestamp;
+//	}
+//
+//	public String getNonce() {
+//		return nonce;
+//	}
+//
+//	public void setSignature(String signature) {
+//		this.signature = signature;
+//	}
+//
+//	public void setTimestamp(String timestamp) {
+//		this.timestamp = timestamp;
+//	}
+//
+//	public void setNonce(String nonce) {
+//		this.nonce = nonce;
+//	}
+//
+//}
