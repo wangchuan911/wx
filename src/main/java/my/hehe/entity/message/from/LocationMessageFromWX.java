@@ -2,6 +2,8 @@ package my.hehe.entity.message.from;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import my.hehe.util.WXType;
+
 @XmlRootElement(name = "xml")
 public class LocationMessageFromWX extends MessageFromWX{
 private String	Location_X;
@@ -32,7 +34,9 @@ public void setScale(String scale) {
 public void setLabel(String label) {
 	Label = label;
 }
-	
+	public LocationMessageFromWX() {
+		MsgType=WXType.MSG_TYPE_LOCATION;
+	}
 
 
 

@@ -69,24 +69,24 @@ public class MusicMessageToWX extends MessageToWX {
 	}
 
 	public MusicMessageToWX(MessageFromWX msg, Long createTime) {
-		super(msg, createTime, WXType.MUSIC);
+		super(msg, createTime, WXType.MSG_TYPE_MUSIC);
 
 		// TODO Auto-generated constructor stub
 	}
 
 	public MusicMessageToWX(MessageFromWX msg) {
-		super(msg, WXType.MUSIC);
+		super(msg, WXType.MSG_TYPE_MUSIC);
 		// TODO Auto-generated constructor stub
 	}
 
 	public MusicMessageToWX(String toUserName, String fromUserName,
 			Long createTime) {
-		super(toUserName, fromUserName, createTime, WXType.MUSIC);
+		super(toUserName, fromUserName, createTime, WXType.MSG_TYPE_MUSIC);
 		// TODO Auto-generated constructor stub
 	}
 
 	public MusicMessageToWX(String toUserName, String fromUserName) {
-		super(toUserName, fromUserName, WXType.MUSIC);
+		super(toUserName, fromUserName, WXType.MSG_TYPE_MUSIC);
 		// TODO Auto-generated constructor stub
 	}
 

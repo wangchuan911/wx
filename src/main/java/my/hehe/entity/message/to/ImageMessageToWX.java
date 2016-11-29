@@ -28,24 +28,24 @@ public class ImageMessageToWX extends MessageToWX {
 	}
 
 	public ImageMessageToWX(MessageFromWX msg, Long createTime) {
-		super(msg, createTime, WXType.IMAGE);
+		super(msg, createTime, WXType.MSG_TYPE_IMAGE);
 
 		// TODO Auto-generated constructor stub
 	}
 
 	public ImageMessageToWX(MessageFromWX msg) {
-		super(msg, WXType.IMAGE);
+		super(msg, WXType.MSG_TYPE_IMAGE);
 		// TODO Auto-generated constructor stub
 	}
 
 	public ImageMessageToWX(String toUserName, String fromUserName,
 			Long createTime) {
-		super(toUserName, fromUserName, createTime, WXType.IMAGE);
+		super(toUserName, fromUserName, createTime, WXType.MSG_TYPE_IMAGE);
 		// TODO Auto-generated constructor stub
 	}
 
 	public ImageMessageToWX(String toUserName, String fromUserName) {
-		super(toUserName, fromUserName, WXType.IMAGE);
+		super(toUserName, fromUserName, WXType.MSG_TYPE_IMAGE);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -32,27 +32,27 @@ public class MessageServiceImp {
 	public MessageToWX receive(MessageBody4WX message) {
 
 		try {
-			if (message.getMsgType().equals(WXType.TEXT)) {
+			if (message.getMsgType().equals(WXType.MSG_TYPE_TEXT)) {
 				return processer.textProcess(MessageCreater.messageConverter(
 						message, TextMessageFromWX.class));
 //				return null;
-			} else if (message.getMsgType().equals(WXType.IMAGE)) {
+			} else if (message.getMsgType().equals(WXType.MSG_TYPE_IMAGE)) {
 				return processer.imageProcess(MessageCreater.messageConverter(
 						message, ImageMessageFromWX.class));
-			} else if (message.getMsgType().equals(WXType.SHORT_VIDEO)) {
+			} else if (message.getMsgType().equals(WXType.MSG_TYPE_VIDEO)) {
 				return processer.shortVideoProcess(MessageCreater
 						.messageConverter(message,
 								ShortVideoMessageFromWX.class));
-			} else if (message.getMsgType().equals(WXType.VIDEO)) {
+			} else if (message.getMsgType().equals(WXType.MSG_TYPE_VIDEO)) {
 				return processer.videoProcess(MessageCreater.messageConverter(
 						message, VideoMessageFromWX.class));
-			} else if (message.getMsgType().equals(WXType.VOICE)) {
+			} else if (message.getMsgType().equals(WXType.MSG_TYPE_VOICE)) {
 				return processer.voiceProcess(MessageCreater.messageConverter(
 						message, VoiceMessageFromWX.class));
-			} else if (message.getMsgType().equals(WXType.LINK)) {
+			} else if (message.getMsgType().equals(WXType.MSG_TYPE_LINK)) {
 				return processer.linkProcess(MessageCreater.messageConverter(
 						message, LinkMessageFromWX.class));
-			} else if (message.getMsgType().equals(WXType.LOCATION)) {
+			} else if (message.getMsgType().equals(WXType.MSG_TYPE_LOCATION)) {
 				return processer
 						.locationProcess(MessageCreater.messageConverter(
 								message, LocationMessageFromWX.class));

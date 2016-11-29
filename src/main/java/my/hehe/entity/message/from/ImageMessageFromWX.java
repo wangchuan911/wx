@@ -27,12 +27,12 @@ public class ImageMessageFromWX extends MessageFromWX{
 
 
 	public ImageMessageFromWX() {
-		this.setMsgType(WXType.IMAGE);
+		this.setMsgType(WXType.MSG_TYPE_IMAGE);
 	}
 
 	public ImageMessageFromWX(String toUserName, String fromUserName,
 			Long createTime,String msgId,String picUrl, String mediaId) {
-		super(toUserName, fromUserName, createTime, WXType.IMAGE, msgId);
+		super(toUserName, fromUserName, createTime, WXType.MSG_TYPE_IMAGE, msgId);
 		this.PicUrl = picUrl;
 		this.MediaId = mediaId;
 		// TODO Auto-generated constructor stub

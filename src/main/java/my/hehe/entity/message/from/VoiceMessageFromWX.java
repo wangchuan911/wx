@@ -4,6 +4,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import my.hehe.util.WXType;
+
 @XmlRootElement(name = "xml")
 public class VoiceMessageFromWX extends MessageFromWX {
 	private String MediaId;
@@ -41,4 +43,8 @@ public class VoiceMessageFromWX extends MessageFromWX {
 		Recognition = recognition;
 	}
 
+	public VoiceMessageFromWX() {
+		// TODO Auto-generated constructor stub
+		MsgType = WXType.MSG_TYPE_VOICE;
+	}
 }

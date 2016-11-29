@@ -28,24 +28,24 @@ public class VoiceMessageToWX extends MessageToWX {
 	}
 
 	public VoiceMessageToWX(MessageFromWX msg, Long createTime) {
-		super(msg, createTime, WXType.VOICE);
+		super(msg, createTime, WXType.MSG_TYPE_VOICE);
 
 		// TODO Auto-generated constructor stub
 	}
 
 	public VoiceMessageToWX(MessageFromWX msg) {
-		super(msg, WXType.VOICE);
+		super(msg, WXType.MSG_TYPE_VOICE);
 		// TODO Auto-generated constructor stub
 	}
 
 	public VoiceMessageToWX(String toUserName, String fromUserName,
 			Long createTime) {
-		super(toUserName, fromUserName, createTime, WXType.VOICE);
+		super(toUserName, fromUserName, createTime, WXType.MSG_TYPE_VOICE);
 		// TODO Auto-generated constructor stub
 	}
 
 	public VoiceMessageToWX(String toUserName, String fromUserName) {
-		super(toUserName, fromUserName, WXType.VOICE);
+		super(toUserName, fromUserName, WXType.MSG_TYPE_VOICE);
 		// TODO Auto-generated constructor stub
 	}
 

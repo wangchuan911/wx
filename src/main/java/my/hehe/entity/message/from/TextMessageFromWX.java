@@ -22,7 +22,7 @@ public class TextMessageFromWX extends MessageFromWX{
 
 
 	public TextMessageFromWX() {
-		this.setMsgType(WXType.TEXT);
+		this.setMsgType(WXType.MSG_TYPE_TEXT);
 	}
 	
 

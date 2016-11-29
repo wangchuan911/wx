@@ -1,5 +1,7 @@
 package my.hehe.entity.message.from;
 
+import my.hehe.util.WXType;
+
 
 public class VideoMessageFromWX extends MessageFromWX{
 	private String MediaId;
@@ -16,6 +18,9 @@ public class VideoMessageFromWX extends MessageFromWX{
 	public void setThumbMediaId(String thumbMediaId) {
 		ThumbMediaId = thumbMediaId;
 	}
-	
+	public VideoMessageFromWX() {
+		// TODO Auto-generated constructor stub
+		MsgType=WXType.MSG_TYPE_VIDEO;
+	}
 
 }

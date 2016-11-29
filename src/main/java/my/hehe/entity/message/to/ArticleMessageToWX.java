@@ -41,24 +41,24 @@ public class ArticleMessageToWX extends MessageToWX {
 	}
 
 	public ArticleMessageToWX(MessageFromWX msg, Long createTime) {
-		super(msg, createTime, WXType.ARTICLE);
+		super(msg, createTime, WXType.MSG_TYPE_ARTICLE);
 
 		// TODO Auto-generated constructor stub
 	}
 
 	public ArticleMessageToWX(MessageFromWX msg) {
-		super(msg, WXType.ARTICLE);
+		super(msg, WXType.MSG_TYPE_ARTICLE);
 		// TODO Auto-generated constructor stub
 	}
 
 	public ArticleMessageToWX(String toUserName, String fromUserName,
 			Long createTime) {
-		super(toUserName, fromUserName, createTime, WXType.ARTICLE);
+		super(toUserName, fromUserName, createTime, WXType.MSG_TYPE_ARTICLE);
 		// TODO Auto-generated constructor stub
 	}
 
 	public ArticleMessageToWX(String toUserName, String fromUserName) {
-		super(toUserName, fromUserName, WXType.ARTICLE);
+		super(toUserName, fromUserName, WXType.MSG_TYPE_ARTICLE);
 		// TODO Auto-generated constructor stub
 	}
 

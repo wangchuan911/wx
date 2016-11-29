@@ -55,9 +55,9 @@ abstract class  AuthenticationResponseWrapper extends HttpServletResponseWrapper
 		buffer.reset();
 	}
 
-	public String getResponseData() throws IOException {
+	public byte[] getResponseData() throws IOException {
 		flushBuffer();
-		return buffer.toString();
+		return buffer.toByteArray();
 	}
 
 	private class WapperedOutputStream extends ServletOutputStream {

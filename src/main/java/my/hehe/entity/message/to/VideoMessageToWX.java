@@ -50,24 +50,24 @@ public class VideoMessageToWX extends MessageToWX {
 	}
 
 	public VideoMessageToWX(MessageFromWX msg, Long createTime) {
-		super(msg, createTime, WXType.VIDEO);
+		super(msg, createTime, WXType.MSG_TYPE_VIDEO);
 
 		// TODO Auto-generated constructor stub
 	}
 
 	public VideoMessageToWX(MessageFromWX msg) {
-		super(msg, WXType.VIDEO);
+		super(msg, WXType.MSG_TYPE_VIDEO);
 		// TODO Auto-generated constructor stub
 	}
 
 	public VideoMessageToWX(String toUserName, String fromUserName,
 			Long createTime) {
-		super(toUserName, fromUserName, createTime, WXType.VIDEO);
+		super(toUserName, fromUserName, createTime, WXType.MSG_TYPE_VIDEO);
 		// TODO Auto-generated constructor stub
 	}
 
 	public VideoMessageToWX(String toUserName, String fromUserName) {
-		super(toUserName, fromUserName, WXType.VIDEO);
+		super(toUserName, fromUserName, WXType.MSG_TYPE_VIDEO);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -1,5 +1,7 @@
 package my.hehe.entity.message.from;
 
+import my.hehe.util.WXType;
+
 
 public class LinkMessageFromWX extends MessageFromWX {
 	private String Title;
@@ -23,7 +25,9 @@ public class LinkMessageFromWX extends MessageFromWX {
 	public void setUrl(String url) {
 		Url = url;
 	}
-	
+	public LinkMessageFromWX() {
+		MsgType=WXType.MSG_TYPE_LINK;
+	}
 	
 
 }

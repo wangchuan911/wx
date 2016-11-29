@@ -1,9 +1,6 @@
 package my.hehe.filter;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -18,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 
-import my.hehe.entity.message.EncryptMessageBody4WX;
 import my.hehe.util.WXApi;
-import my.hehe.util.XmlUtil;
 
 @Service
 public class HttpEncryptFilter implements Filter {
@@ -72,18 +67,24 @@ public class HttpEncryptFilter implements Filter {
 
 			@Override
 			public void doFilterAfter(HttpServletResponse response) {
+				ServletOutputStream out=null;
 				try {
-					String response_body = getResponseData();
+					String response_body = new String(getResponseData(),response.getCharacterEncoding());
 					String ecrypt;
 					if (response_body.equals("success")) {
 						ecrypt = response_body;
 					} else {
 						ecrypt = api.ecryptMsg(response_body, timestamp, nonce);
 					}
-					ServletOutputStream out = response.getOutputStream();
-					out.write(ecrypt.getBytes(response.getCharacterEncoding()));
+					out = response.getOutputStream();
+					try {
+						out.write(ecrypt.getBytes(response.getCharacterEncoding()));
+					} catch (Exception e) {
+						e.printStackTrace();
+						out.write("success".getBytes(response.getCharacterEncoding()));
+					}
 					out.flush();
-				} catch (Exception e) {
+				} catch (Exception e) {					
 					// TODO: handle exception
 					e.printStackTrace();
 				}

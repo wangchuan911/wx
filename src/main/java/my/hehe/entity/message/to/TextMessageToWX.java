@@ -24,24 +24,24 @@ public class TextMessageToWX extends MessageToWX {
 	}
 
 	public TextMessageToWX() {
-		this.setMsgType(WXType.TEXT);
+		this.setMsgType(WXType.MSG_TYPE_TEXT);
 	}
 
 	public TextMessageToWX(String toUserName, String fromUserName,
 			Long createTime) {
-		super(toUserName, fromUserName, createTime, WXType.TEXT);
+		super(toUserName, fromUserName, createTime, WXType.MSG_TYPE_TEXT);
 	}
 
 	public TextMessageToWX(String toUserName, String fromUserName) {
-		super(toUserName, fromUserName, WXType.TEXT);
+		super(toUserName, fromUserName, WXType.MSG_TYPE_TEXT);
 	}
 
 	public TextMessageToWX(MessageFromWX msg, Long createTime) {
-		super(msg, createTime, WXType.TEXT);
+		super(msg, createTime, WXType.MSG_TYPE_TEXT);
 	}
 
 	public TextMessageToWX(MessageFromWX msg) {
-		super(msg, WXType.TEXT);
+		super(msg, WXType.MSG_TYPE_TEXT);
 	}
 
 	@Override

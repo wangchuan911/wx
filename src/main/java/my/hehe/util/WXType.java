@@ -1,13 +1,13 @@
 package my.hehe.util;
 
 public class WXType {
-	static final public String TEXT = "text";
-	static final public String IMAGE = "image";
-	static final public String VOICE = "voice";
-	static final public String VIDEO = "video";
-	static final public String SHORT_VIDEO = "shortvideo";
-	static final public String LOCATION = "location";
-	static final public String LINK = "link";
-	static final public String MUSIC = "music";
-	static final public String ARTICLE = "news";
+	static final public String MSG_TYPE_TEXT = "text";
+	static final public String MSG_TYPE_IMAGE = "image";
+	static final public String MSG_TYPE_VOICE = "voice";
+	static final public String MSG_TYPE_VIDEO = "video";
+	static final public String MSG_TYPE_SHORT_VIDEO = "shortvideo";
+	static final public String MSG_TYPE_LOCATION = "location";
+	static final public String MSG_TYPE_LINK = "link";
+	static final public String MSG_TYPE_MUSIC = "music";
+	static final public String MSG_TYPE_ARTICLE = "news";
 }
