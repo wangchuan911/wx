@@ -27,7 +27,7 @@ public class TSTDTZApi {
 //		this.template = template;
 //	}
 
-	public String TD(String location, int count,long time) {
+	public List<HtmlInfo> TD(String location, int count,long time) {
 		List<HtmlInfo> infos = null;
 		try {
 
@@ -53,20 +53,13 @@ public class TSTDTZApi {
 		}
 		StringBuffer sb = new StringBuffer("[");
 		if (infos != null) {
-			for (int i = 0; i < (infos.size() > count ? count : infos.size()); i++) {
-				HtmlInfo info=infos.get(i);
-				if(time!=0){
-					//
-				}
-				sb.append(info);
-				if (i + 1 != infos.size()) {
-					sb.append(",");
-				}
+			int i;
+			while((i=infos.size())>count){
+				infos.remove(i-1);
 			}
-			sb.append("}");
 		}
 		
-		return sb.toString();
+		return infos;
 	}
 
 	public static void main(String[] args) throws IOException {

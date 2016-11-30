@@ -1,9 +1,12 @@
 package my.hehe.service.flow;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
+import my.hehe.entity.HtmlInfo;
 import my.hehe.entity.message.MessageCreater;
 import my.hehe.entity.message.from.ImageMessageFromWX;
 import my.hehe.entity.message.from.LinkMessageFromWX;
@@ -27,11 +30,17 @@ public class MessageProcesserImp implements MessageProcesser {
 
 	public MessageToWX textProcess(TextMessageFromWX msg) {
 		// TODO Auto-generated method stub
-		TextMessageToWX to = new TextMessageToWX(msg);
+		MessageToWX to=null;
 		if (msg.getContent().trim().equals("南宁")) {
-			to.setContent(api.TD(msg.getContent().trim(), 1, 0));
+			to=new ArticleMessageToWX(msg);
+			List<HtmlInfo> infos=api.TD(msg.getContent().trim(), 1, 0);
+			for (HtmlInfo htmlInfo : infos) {
+				((ArticleMessageToWX)to).setArticleInfo(htmlInfo.getCreateDate(), htmlInfo.getInfo(), "", htmlInfo.getHref());
+			}
+			
 		} else {
-			to.setContent("you say:" + msg.getContent());
+			to = new TextMessageToWX(msg);
+			((TextMessageToWX )to).setContent("you say:" + msg.getContent());
 		}
 		return to;
 	}
