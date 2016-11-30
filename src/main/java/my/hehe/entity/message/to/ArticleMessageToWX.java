@@ -68,7 +68,7 @@ public class ArticleMessageToWX extends MessageToWX {
 @XmlAccessorType(XmlAccessType.FIELD)
 class Article {
 
-	@XmlElement(name = "MediaId")
+	@XmlElement(name = "Title")
 	private String Title;
 	@XmlElement(name = "Description")
 	private String Description;

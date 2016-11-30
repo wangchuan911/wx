@@ -1,6 +1,7 @@
 package my.hehe.filter;
 
 import java.io.IOException;
+
 import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 
 import my.hehe.util.WXApi;
+import my.hehe.util.WXType;
 
 @Service
 public class HttpEncryptFilter implements Filter {
@@ -33,8 +35,8 @@ public class HttpEncryptFilter implements Filter {
 		watch.start();
 		
 		final WXApi api = this.api;
-		final String timestamp = request.getParameter("timestamp");
-		final String nonce = request.getParameter("nonce");
+		final String timestamp = request.getParameter(WXType.MSG_PARM_TIMESTAMP);
+		final String nonce = request.getParameter(WXType.MSG_PARM_NONCE);
 
 		AuthenticationRequestWrapper requestWrapper = new AuthenticationRequestWrapper(
 				(HttpServletRequest) request) {
@@ -45,9 +47,9 @@ public class HttpEncryptFilter implements Filter {
 					String dencrypt = null;
 					try {
 						dencrypt = api.decryptMsg(
-								request.getParameter("msg_signature"),
-								request.getParameter("timestamp"),
-								request.getParameter("nonce"), data);
+								request.getParameter(WXType.MSG_PARM_MSG_SIGNATURE),
+								request.getParameter(WXType.MSG_PARM_TIMESTAMP),
+								request.getParameter(WXType.MSG_PARM_NONCE), data);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -71,7 +73,7 @@ public class HttpEncryptFilter implements Filter {
 				try {
 					String response_body = new String(getResponseData(),response.getCharacterEncoding());
 					String ecrypt;
-					if (response_body.equals("success")) {
+					if (response_body.equals(WXType.MSG_REPLY)) {
 						ecrypt = response_body;
 					} else {
 						ecrypt = api.ecryptMsg(response_body, timestamp, nonce);
@@ -81,7 +83,7 @@ public class HttpEncryptFilter implements Filter {
 						out.write(ecrypt.getBytes(response.getCharacterEncoding()));
 					} catch (Exception e) {
 						e.printStackTrace();
-						out.write("success".getBytes(response.getCharacterEncoding()));
+						out.write(WXType.MSG_REPLY.getBytes(response.getCharacterEncoding()));
 					}
 					out.flush();
 				} catch (Exception e) {					
