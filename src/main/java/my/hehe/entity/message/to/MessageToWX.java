@@ -11,7 +11,7 @@ import my.hehe.entity.message.from.MessageFromWX;
 
 @XmlRootElement(name = "xml")
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class MessageToWX {
+public abstract class MessageToWX {//http://blog.csdn.net/howingtian/article/details/49026907
 	@XmlElement(name = "ToUserName")
 	protected String ToUserName;
 	@XmlElement(name = "FromUserName")

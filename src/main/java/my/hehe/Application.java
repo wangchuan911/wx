@@ -27,7 +27,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.qq.weixin.mp.aes.AesException;
-import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 
 @SpringBootApplication
 @EnableScheduling
@@ -45,10 +44,9 @@ public class Application extends SpringBootServletInitializer implements
 	@Resource
 	HttpEncryptFilter httpEncryptFilter;
 
-	
 	@Bean
 	public WXApi getWXApi() throws AesException {
-		WXApi api= new WXApi();
+		WXApi api = new WXApi();
 		api.setTemplate(new RestTemplate());
 		return api;
 	}
@@ -69,7 +67,8 @@ public class Application extends SpringBootServletInitializer implements
 			}
 		};
 	}
-	/*                         filter_start                            */
+
+	/* filter_start */
 	@Bean
 	public Filter characterEncodingFilter() {
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
@@ -84,27 +83,29 @@ public class Application extends SpringBootServletInitializer implements
 	@Bean
 	public FilterRegistrationBean getHttpEncrypt() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
-//		Filter httpEncryptFilter = new HttpEncryptFilter();
-//				characterEncodingFilter();
-	
+		// Filter httpEncryptFilter = new HttpEncryptFilter();
+		// characterEncodingFilter();
+
 		beanFactory.autowireBean(httpEncryptFilter);
 		registration.setFilter(httpEncryptFilter);
 		registration.addUrlPatterns("/*");
 		registration.setOrder(-65534);
 		return registration;
 	}
+
 	@Bean
 	public FilterRegistrationBean getCharacterEncodingFilter() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
-	
-		Filter EncodingFilter=characterEncodingFilter();
+
+		Filter EncodingFilter = characterEncodingFilter();
 		beanFactory.autowireBean(EncodingFilter);
 		registration.setFilter(EncodingFilter);
 		registration.setOrder(-65535);
 		registration.addUrlPatterns("/*");
 		return registration;
 	}
-/*                         filter_end                                 */
+
+	/* filter_end */
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 

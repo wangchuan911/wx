@@ -1,4 +1,4 @@
-package my.hehe.service.flow;
+package my.hehe.service.processer;
 
 import my.hehe.entity.message.from.ImageMessageFromWX;
 import my.hehe.entity.message.from.LinkMessageFromWX;

@@ -1,6 +1,6 @@
 package my.hehe.service;
 
-import my.hehe.service.flow.MessageProcesser;
+import my.hehe.service.processer.MessageProcesser;
 import my.hehe.entity.message.MessageBody4WX;
 import my.hehe.entity.message.MessageCreater;
 import my.hehe.entity.message.from.ImageMessageFromWX;
@@ -18,14 +18,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MessageServiceImp {
-	// @Resource
-	// private RestTemplate template;
-	// @Resource
-	// private Token token;
-
-	// @Value("${api.weixin.sendToUser}")
-	// private static String Send_URL;
-
 	@Autowired
 	private MessageProcesser processer;
 

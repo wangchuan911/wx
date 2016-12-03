@@ -52,6 +52,7 @@ public class MessageCreater {
 				return null;
 			}
 			try {
+				@SuppressWarnings("rawtypes")
 				Class body_clazz = body.getClass();
 				T t = clazz.newInstance();
 
